@@ -42,20 +42,26 @@ An application that lists restaurants that have removed the tipping model, optin
 * None at this time
 
 ## Getting Started
-* WIP
-* Install:
-* Code Editor:
 
 ## Prerequisites
 
+#### Install Postman
+(Optional) [Download and install Postman](https://www.postman.com/downloads/).
+
+#### Code Editor
+  To view or edit the code, you will need a code editor or text editor. The open-source code editor we used is VisualStudio Code.
+
+  1) Code Editor Download: [VisualStudio Code](https://www.npmjs.com/)
+  2) Click the download most applicable to your OS and system.
+  3) Wait for download to complete, then install -- Windows will run the setup exe and macOS will drag and drop into applications.
+
 ## Setup
-* WIP
 
 ### Clone repository
-WIP
+
 1. Navigate to the [repository](https://github.com/henry-oberholtzer/beyondtipping).
 
-  2. Click the `Fork` button and you will be taken to a new page where you can give your repository a new name and description. Choose "create fork".
+2. Click the `Fork` button and you will be taken to a new page where you can give your repository a new name and description. Choose "create fork".
 
 3. Click the `Code` button and copy the url for HTTPS.
 
@@ -63,30 +69,26 @@ WIP
 
 5. In this new directory, via the terminal, type `$ git clone https://github.com/henry-oberholtzer/beyondtipping`.
 
-<!-- 6. Run the command `cd Garden-guardian` to enter into the project directory. -->
+6. Run the command `cd beyondtipping` to enter into the project directory.
 
-7. Once you have this on your local directory, if you ever want to push it to GitHub, you need to do these steps first so Git knows to ignore the desired directories and files:
-`$ git init` to initialize Git and
-`$ touch .gitignore` adds .gitignore file in the root directory. (if cloning, this step already automatically happened, it is good practice to double check.)
+7. View or Edit: On your terminal, type `$ code .` to open the project in VS Code.
 
-8. View or Edit: On your terminal, type `$ code .` to open the project in VS Code.
+8. In VSCode- in project directory of the terminal: type `$ npm install` to compile the application's code and install all needed dependencies.
 
-9.  Ensure the .gitignore file contains:
-```
-> bin
-> obj
-> appsettings.json
-```
-Once confirmed, ensure sensitive files are not shared to GitHub by commiting .gitignore file before appsettings.json is created. Via terminal:
-```
-$ git add .gitignore
-$ git commit -m 'add .gitignore'
-$ git push origin main
-```
+9. Run local server: `$ npm run dev`
 
-* Clone
-* gitignore
-* db setup
+### Database
+
+- SQLite is integrated into Flask
+- ??? PW .env?
+
+#### Launch the API
+1) Navigate to api directory using the MacOS Terminal or Windows Powershell.
+2) Run the command `flask run` to have access to the API in Postman or browser via swagger `http://localhost:8000/admin`
+---
+???
+---
+3) You can close the server at anytime by entering `ctrl` + `c` in the terminal. 
 
 ---
 
