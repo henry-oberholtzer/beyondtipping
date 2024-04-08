@@ -8,7 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-   
+      fontFamily: {
+        body: ["var(--font-mulish)"],
+        display: ["var(--font-mPlusRounded1c)"]
+      }
     },
   },
   plugins: [],
