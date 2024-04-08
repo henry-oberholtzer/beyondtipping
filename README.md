@@ -85,14 +85,12 @@ An application that lists restaurants that have removed the tipping model, optin
 2. Install python 3
 `$ brew install python@3`
 3. Create a virtual environment
-`$ python3 -m venv env`
+`$ python3 -m venv .venv`
 4. Enter virtual environment
 `$ source .venv/bin/activate`
-5. Install flask
-`$ pip install flask`
-6. Install Rest Package
-`$ pip install flask_restful`
-7. Run api server: http://127.0.0.1:5000/
+5. Install packages and dependencies
+`$ pip install -r /requirements.txt`
+6. Run api server: http://127.0.0.1:5000/
 `$ python index.py`
 
 ### Database
