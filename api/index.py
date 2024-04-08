@@ -1,11 +1,15 @@
 from flask import Flask, request
+from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from sqlalchemy.exc import SQLAlchemyError
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance/test.db')
 db = SQLAlchemy(app)
+api = Api(app)
 
 class Type(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -19,7 +23,8 @@ class Restaurant(db.Model):
   address = db.Column(db.String(100))
   website = db.Column(db.String(100))
   imageUrl = db.Column(db.String(100))
-  coordinates = db.Column(db.String(250))
+  latitude = db.Column(db.Float())
+  longitude = db.Column(db.Float())
   type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=False)
 
   def __repr__(self):
@@ -29,7 +34,7 @@ ma = Marshmallow(app)
 
 class RestaurantSchema(ma.Schema):
   class Meta:
-    fields = ("id", "name", "address", "website")
+    fields = ("id", "name", "address", "website", "imageUrl", "latitude", "longitude")
     # not sure users need access to imageurl/coordinates
     model = Restaurant
     
@@ -41,39 +46,69 @@ class TypeSchema(ma.Schema):
   
 
 restaurant_schema = RestaurantSchema()
-resturants_schema = RestaurantSchema(many=True)
+restaurants_schema = RestaurantSchema(many=True)
 type_schema = TypeSchema()
 types_schema = TypeSchema(many=True)
 
-@app.route("/api/healthchecker", methods=["GET"])
-def healthchecker():
-  return {"status": "success", "message": "Integrate Flask Framework with Next.js"}
 
-@app.route("/restaurants", methods=["GET"])
-def get_all_restaurants():
-  return {"status": "success", "message": "This will return all restaurants"}
+class RestaurantListResource(Resource):
+  def get(self):
+    try:
+      restaurants = Restaurant.query.all()
+      return restaurants_schema.dump(restaurants)
+    except SQLAlchemyError as e:
+      app.logger.error(f"sqlalchemy error: {str(e)}")
+      error_details = getattr(e, "msg", None)
+      if error_details:
+        app.logger.error(f"Additional errors: {error_details}")
+      return {"sql message": str(error_details) if error_details else None}, 500
+    except Exception as e:
+      app.logger.error(f"An error: {str(e)}")
+      return {"message": "Error occurred"}, 500
+
+  def post(self):
+    new_restaurant = Restaurant(
+      name=request.json['name'],
+      address=request.json['address'],
+      website=request.json['website'],
+      imageUrl=request.json['imageUrl'],
+      latitude=request.json['latitude'],
+      longitude=request.json['longitude'],
+      # type_id=request.json['type_id'],
+    )
+    db.session.add(new_restaurant)
+    db.session.commit()
+    return restaurant_schema.dump(new_restaurant)
+
+# class RestaurantResource(Resource):
+#   def get(self, id):
+#     restaurant = Restaurant.query.get_or_404(id)
+#     return restaurant_schema.dump(restaurant)
+
+api.add_resource(RestaurantListResource, '/restaurants')
 
 # Posts a new restaurant, will need authentication and data validation.
-@app.route("/restaurants", methods=["POST"])
-def add_restaurant():
-  data = request.get_json()
-  return 201
+# @app.route("/restaurants", methods=["POST"])
+# def add_restaurant():
+#   # add logic for CREATE
+#   data = request.get_json()
+#   return 201
 
-@app.route("/restaurants/<int:id>", methods=["GET"])
-def get_restaurant(id):
-  return {"status": "success", "message": f"This will return a single restaurant with ID of {id}"}
+# @app.route("/restaurants/<int:id>", methods=["GET"])
+# def get_restaurant(id):
+#   return {"status": "success", "message": f"This will return a single restaurant with ID of {id}"}
 
-@app.route("/restaurants/<int:id>", methods=["PATCH"])
-def patch_restaurant(id):
-  return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
+# @app.route("/restaurants/<int:id>", methods=["PATCH"])
+# def patch_restaurant(id):
+#   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
-@app.route("/restaurants/<int:id>", methods=["DELETE"])
-def delete_restaurant(id):
-  return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
+# @app.route("/restaurants/<int:id>", methods=["DELETE"])
+# def delete_restaurant(id):
+#   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
-@app.route("/types", methods=["GET"])
-def get_all_types():
-  return {"status": "success", "message": "This will return all tipping types"}
+# @app.route("/types", methods=["GET"])
+# def get_all_types():
+#   return {"status": "success", "message": "This will return all tipping types"}
 
 if __name__ == "__main__":
   app.run(debug=True)
