@@ -50,18 +50,39 @@ restaurants_schema = RestaurantSchema(many=True)
 type_schema = TypeSchema()
 types_schema = TypeSchema(many=True)
 
+# Note: i seeded the type table in the db in the shell like when sqlite was first set up
+def seed_db():
+    types = [
+    { "name": 'Flat Fee', 
+      "amount": '',
+    },
+    {
+      "name": 'Service Fee',
+      "amount": '0.18',
+    },
+    {
+      "name": 'Service Fee',
+      "amount": '0.20',
+    },
+    {
+      "name": 'Service Fee',
+      "amount": '0.22',
+    },
+    {
+      "name": 'Service Fee',
+      "amount": 'other',
+    }
+  ]
+    for type_data in types:
+      new_type = Type(name=type_data["name"], amount=type_data["amount"])
+      db.session.add(new_type)
+    db.session.commit()
 
 class RestaurantListResource(Resource):
   def get(self):
     try:
       restaurants = Restaurant.query.all()
       return restaurants_schema.dump(restaurants)
-    except SQLAlchemyError as e:
-      app.logger.error(f"sqlalchemy error: {str(e)}")
-      error_details = getattr(e, "msg", None)
-      if error_details:
-        app.logger.error(f"Additional errors: {error_details}")
-      return {"sql message": str(error_details) if error_details else None}, 500
     except Exception as e:
       app.logger.error(f"An error: {str(e)}")
       return {"message": "Error occurred"}, 500
@@ -87,28 +108,18 @@ class RestaurantListResource(Resource):
 
 api.add_resource(RestaurantListResource, '/restaurants')
 
-# Posts a new restaurant, will need authentication and data validation.
-# @app.route("/restaurants", methods=["POST"])
-# def add_restaurant():
-#   # add logic for CREATE
-#   data = request.get_json()
-#   return 201
+class TypeListResource(Resource):
+  def get(self):
+    try:
+      types = Type.query.all()
+      return types_schema.dump(types)
+    except Exception as e:
+      app.logger.error(f"An error: {str(e)}")
+      return {"message": "Error occurred"}, 500
 
-# @app.route("/restaurants/<int:id>", methods=["GET"])
-# def get_restaurant(id):
-#   return {"status": "success", "message": f"This will return a single restaurant with ID of {id}"}
+api.add_resource(TypeListResource, '/types')
 
-# @app.route("/restaurants/<int:id>", methods=["PATCH"])
-# def patch_restaurant(id):
-#   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
-# @app.route("/restaurants/<int:id>", methods=["DELETE"])
-# def delete_restaurant(id):
-#   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
-
-# @app.route("/types", methods=["GET"])
-# def get_all_types():
-#   return {"status": "success", "message": "This will return all tipping types"}
 
 if __name__ == "__main__":
   app.run(debug=True)
