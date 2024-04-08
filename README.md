@@ -75,8 +75,15 @@ An application that lists restaurants that have removed the tipping model, optin
 
 8. In VSCode- in project directory of the terminal: type `$ npm install` to compile the application's code and install all needed dependencies.
 
+(You may need to have these installed manually (and create a Prismic account)):
+```
+$ npx @slicemachine/init@latest
+$npm i clsx
+ ```
+
 9. Run local server: `$ npm run dev`
 (This will be located at: http://localhost:3000/)
+(this command should run front and back end at the same time-http://127.0.0.1:8000/)
 
 ### Flask
 
@@ -90,7 +97,7 @@ An application that lists restaurants that have removed the tipping model, optin
 `$ source .venv/bin/activate`
 5. Install packages and dependencies
 `$ pip install -r /requirements.txt`
-6. Run api server: http://127.0.0.1:5000/
+6. Run api server: http://127.0.0.1:8000/
 `$ python index.py`
 
 ### Database
@@ -100,7 +107,7 @@ An application that lists restaurants that have removed the tipping model, optin
 
 #### Launch the API
 1) Navigate to api directory using the MacOS Terminal or Windows Powershell.
-2) Run the command `flask run` to have access to the API in Postman or browser via swagger `http://localhost:5000/admin`
+2) Run the command `flask run` to have access to the API in Postman or browser via flask rest(not sure if this exists?) `http://localhost:5000/admin`
 ---
 ???
 ---
