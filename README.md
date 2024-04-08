@@ -1,5 +1,5 @@
 # Beyond Tipping
-_by [Brianca Knight](https://github.com/BriancaKnight), [Henry Oberholtzer](https://github.com/henry-oberholtzer), [Kim Robinson](https://github.com/kimmykokonut), [Noah Kise](https://github.com/NoahKise)_
+_by [Brianca Knight](https://github.com/BriancaKnight)  | [Henry Oberholtzer](https://github.com/henry-oberholtzer) | [Kim Robinson](https://github.com/kimmykokonut) | [Noah Kise](https://github.com/NoahKise)_
 
 * Splash page here
 
@@ -22,6 +22,7 @@ _by [Brianca Knight](https://github.com/BriancaKnight), [Henry Oberholtzer](http
 ## About the Project
 
 ## Description
+An application that lists restaurants that have removed the tipping model, opting for a flat price on menus or implementing a service fee.  Restaurants available as a list or interactive map.
 
 ## Built With
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -51,6 +52,38 @@ _by [Brianca Knight](https://github.com/BriancaKnight), [Henry Oberholtzer](http
 * WIP
 
 ### Clone repository
+WIP
+1. Navigate to the [repository](https://github.com/henry-oberholtzer/beyondtipping).
+
+  2. Click the `Fork` button and you will be taken to a new page where you can give your repository a new name and description. Choose "create fork".
+
+3. Click the `Code` button and copy the url for HTTPS.
+
+4. On your local computer, create a working directory of your choice.
+
+5. In this new directory, via the terminal, type `$ git clone https://github.com/henry-oberholtzer/beyondtipping`.
+
+<!-- 6. Run the command `cd Garden-guardian` to enter into the project directory. -->
+
+7. Once you have this on your local directory, if you ever want to push it to GitHub, you need to do these steps first so Git knows to ignore the desired directories and files:
+`$ git init` to initialize Git and
+`$ touch .gitignore` adds .gitignore file in the root directory. (if cloning, this step already automatically happened, it is good practice to double check.)
+
+8. View or Edit: On your terminal, type `$ code .` to open the project in VS Code.
+
+9.  Ensure the .gitignore file contains:
+```
+> bin
+> obj
+> appsettings.json
+```
+Once confirmed, ensure sensitive files are not shared to GitHub by commiting .gitignore file before appsettings.json is created. Via terminal:
+```
+$ git add .gitignore
+$ git commit -m 'add .gitignore'
+$ git push origin main
+```
+
 * Clone
 * gitignore
 * db setup
