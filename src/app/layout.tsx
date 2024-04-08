@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Mulish, M_PLUS_Rounded_1c } from "next/font/google";
 import "./globals.css";
+import clsx from 'clsx';
 
-const inter = Inter({ subsets: ["latin"] });
+const mulish = Mulish({
+  subsets: ['latin'],
+  variable: '--font-mulish',
+  display: 'swap',
+})
+
+const mPlusRounded1c = M_PLUS_Rounded_1c({
+  subsets: ['latin'],
+  variable: '--font-mPlusRounded1c',
+  weight: '700',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en"  className={clsx(mulish.variable, mPlusRounded1c.variable)}>
+      <body>{children}</body>
     </html>
   );
 }
