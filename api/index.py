@@ -16,15 +16,15 @@ def add_restaurant():
   data = request.get_json()
   return 201
 
-@app.router("/restaurants/<int:id>", methods=["GET"])
+@app.route("/restaurants/<int:id>", methods=["GET"])
 def get_restaurant(id):
   return {"status": "success", "message": f"This will return a single restaurant with ID of {id}"}
 
-@app.router("/restaurants/<int:id>", methods=["PATCH"])
+@app.route("/restaurants/<int:id>", methods=["PATCH"])
 def patch_restaurant(id):
   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
-@app.router("/restaurants/<ing:id>", methods=["DELETE"])
+@app.route("/restaurants/<int:id>", methods=["DELETE"])
 def delete_restaurant(id):
   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
