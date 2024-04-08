@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 import os
 
 app = Flask(__name__)
@@ -34,17 +34,15 @@ ma = Marshmallow(app)
 
 class RestaurantSchema(ma.Schema):
   class Meta:
-    fields = ("id", "name", "address", "website", "imageUrl", "latitude", "longitude")
-    # not sure users need access to imageurl/coordinates
+    fields = ("id", "name", "address", "website", "imageUrl", "latitude", "longitude", "type_id")
     model = Restaurant
     
 class TypeSchema(ma.Schema):
   class Meta:
     fields = ("id", "name", "amount")
-    # not sure users need access to the 1:m relationship
+    # not sure users need access to the 1:m relationship???
     model = Type
   
-
 restaurant_schema = RestaurantSchema()
 restaurants_schema = RestaurantSchema(many=True)
 type_schema = TypeSchema()
@@ -88,23 +86,27 @@ class RestaurantListResource(Resource):
       return {"message": "Error occurred"}, 500
 
   def post(self):
-    new_restaurant = Restaurant(
-      name=request.json['name'],
-      address=request.json['address'],
-      website=request.json['website'],
-      imageUrl=request.json['imageUrl'],
-      latitude=request.json['latitude'],
-      longitude=request.json['longitude'],
-      # type_id=request.json['type_id'],
-    )
-    db.session.add(new_restaurant)
-    db.session.commit()
-    return restaurant_schema.dump(new_restaurant)
-
-# class RestaurantResource(Resource):
-#   def get(self, id):
-#     restaurant = Restaurant.query.get_or_404(id)
-#     return restaurant_schema.dump(restaurant)
+    try:
+      new_restaurant = Restaurant(
+        name=request.json['name'],
+        address=request.json['address'],
+        website=request.json['website'],
+        imageUrl=request.json['imageUrl'],
+        latitude=request.json['latitude'],
+        longitude=request.json['longitude'],
+        type_id=request.json['type_id'],
+      )
+      db.session.add(new_restaurant)
+      db.session.commit()
+      return restaurant_schema.dump(new_restaurant)
+    except IntegrityError:
+      return {"message": "Invalid type_id"}, 400
+    
+# LEFT OFF HERE> NEED TO ADD GET BY ID< PUT< DELETE
+class RestaurantResource(Resource):
+  def get(self, id):
+    restaurant = Restaurant.query.get_or_404(id)
+    return restaurant_schema.dump(restaurant)
 
 api.add_resource(RestaurantListResource, '/restaurants')
 
@@ -118,7 +120,6 @@ class TypeListResource(Resource):
       return {"message": "Error occurred"}, 500
 
 api.add_resource(TypeListResource, '/types')
-
 
 
 if __name__ == "__main__":
