@@ -40,7 +40,7 @@ def get_restaurant(id):
 def patch_restaurant(id):
   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
-@app.route("/restaurants/<ing:id>", methods=["DELETE"])
+@app.route("/restaurants/<int:id>", methods=["DELETE"])
 def delete_restaurant(id):
   return {"status": "success", "message": f"This will edit a single restaurant with ID of {id}"}
 
