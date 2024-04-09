@@ -101,14 +101,15 @@ class RestaurantListResource(Resource):
       return restaurant_schema.dump(new_restaurant)
     except IntegrityError:
       return {"message": "Invalid type_id"}, 400
+api.add_resource(RestaurantListResource, '/restaurants')
     
 # LEFT OFF HERE> NEED TO ADD GET BY ID< PUT< DELETE
 class RestaurantResource(Resource):
   def get(self, id):
     restaurant = Restaurant.query.get_or_404(id)
     return restaurant_schema.dump(restaurant)
+api.add_resource(RestaurantResource, '/restaurants/<int:id>')
 
-api.add_resource(RestaurantListResource, '/restaurants')
 
 class TypeListResource(Resource):
   def get(self):
@@ -120,7 +121,6 @@ class TypeListResource(Resource):
       return {"message": "Error occurred"}, 500
 
 api.add_resource(TypeListResource, '/types')
-
 
 if __name__ == "__main__":
   app.run(debug=True)
