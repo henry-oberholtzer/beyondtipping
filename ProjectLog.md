@@ -58,3 +58,10 @@
 ### Stretch Goals:
 * Build out Restaurant model (hours, foodType)
 * Clickable restaurant to info
+
+
+## To Do:
+
+Henry:
+  - Add Flask-Admin
+  - Add Authentication for Admin
