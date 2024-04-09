@@ -1,20 +1,52 @@
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for, request, abort
 from flask_admin import Admin
+from flask_admin import helpers as admin_helpers
 from flask_admin.contrib.sqla import ModelView
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from sqlalchemy.exc import IntegrityError
+from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password, current_user
+from flask_security.models import fsqla_v3 as fsqla
 import os
 
+# Creates the Flask Application
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+# Generate the key using secrets.token_urlsafe() in REPL
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", '-0akJP5907ZPDh1q0zgRKDePXLaDiRwObKDRdlAIHrI')
+app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT', '72679148524296801418994703305798390574')
+
+# Creates a session with cookies.
+app.config["REMEMBER_COOKIE_SAMESITE"] = "strict"
+app.config["SESSION_COOKIE_SAMESITE"] = "strict"
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance/test.db')
+
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+  "pool_pre_ping": True,
+}
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
 db = SQLAlchemy(app)
 api = Api(app)
 
+# Define user models
+fsqla.FsModels.set_db_info(db)
 
+class Role(db.Model, fsqla.FsRoleMixin):
+  pass
+class User(db.Model, fsqla.FsUserMixin):
+  pass
+
+# Setup for Flask-Security
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+app.security = Security(app, user_datastore)
+
+# Define database models
 
 class Type(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -81,6 +113,11 @@ def seed_db():
       db.session.add(new_type)
     db.session.commit()
 
+with app.app_context():
+  db.create_all()
+  if not app.security.datastore.find_user(email="test@email.com"):
+    app.security.datastore.create_user(email="test@email.com", password=hash_password("password"))
+
 class RestaurantListResource(Resource):
   def get(self):
     try:
@@ -128,11 +165,47 @@ api.add_resource(TypeListResource, '/types')
 
 # Admin Views
 
+class CustomModelView(ModelView):
+  def is_accessible(self):
+    return (
+      current_user.is_active and
+      current_user.is_authenticated and
+      current_user.has_role('superuser')
+    )
+  
+  def _handle_view(self, name, **kwargs):
+    """
+    Overrides builtin _handle_view in order to redirect users when a view is not accessible.
+    """
+    if not self.is_accessible():
+      if current_user.is_authenticated:
+        # Permission denied
+        abort(403)
+      else:
+        # Redirect to login
+        return redirect(url_for('security.login', next=request.url))
+    return super()._handle_view(name, **kwargs)
+
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
-admin = Admin(app, name='beyondtipping', template_mode='bootstrap3')
-admin.add_view(ModelView(Restaurant, db.session))
-admin.add_view(ModelView(Type, db.session))
+admin = Admin(app,
+              name='beyondtipping',
+              base_template='custom_master.html',
+              template_mode='bootstrap3',)
+admin.add_view(CustomModelView(Restaurant, db.session))
+admin.add_view(CustomModelView(Type, db.session))
+
+admin.add_view(CustomModelView(Role, db.session))
+admin.add_view(CustomModelView(Role, db.session))
+
+@security.context_processor
+def security_context_processor():
+  return dict(
+    admin_base_template=admin.base_template,
+    admin_view=admin.index_view,
+    h=admin_helpers,
+    get_url=url_for
+  )
 
 if __name__ == "__main__":
   app.run(debug=True)
