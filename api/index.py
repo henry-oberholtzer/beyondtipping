@@ -40,7 +40,6 @@ class RestaurantSchema(ma.Schema):
 class TypeSchema(ma.Schema):
   class Meta:
     fields = ("id", "name", "amount")
-    # not sure users need access to the 1:m relationship???
     model = Type
   
 restaurant_schema = RestaurantSchema()
@@ -145,8 +144,43 @@ class TypeListResource(Resource):
     except Exception as e:
       app.logger.error(f"An error: {str(e)}")
       return {"message": "Error occurred"}, 500
+  def post(self):
+    try:
+      new_type = Type(
+        name=request.json['name'],
+        amount=request.json['amount']
+      )
+      db.session.add(new_type)
+      db.session.commit()
+      return type_schema.dump(new_type)
+    except IntegrityError:
+      return {"message": "Invalid type_id"}, 400
 
 api.add_resource(TypeListResource, '/types')
+
+class TypeResource(Resource):
+  def get(self, id):
+    type = Type.query.get_or_404(id)
+    return type_schema.dump(type)
+  def patch(self, id):
+    type = Type.query.get_or_404(id)
+
+    if 'name' in request.json:
+      type.name = request.json['name']
+    if 'amount' in request.json:
+      type.amount = request.json['amount']
+
+    db.session.commit()
+    return type_schema.dump(type)
+
+  def delete(self, id):
+    type = Type.query.get_or_404(id)
+    db.session.delete(type)
+    db.session.commit()
+    return '', 204
+
+api.add_resource(TypeResource, '/types/<int:id>')
+
 
 if __name__ == "__main__":
   app.run(debug=True)
