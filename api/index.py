@@ -16,6 +16,7 @@ app = Flask(__name__)
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+app.config.from_pyfile('config.py')
 # Generate the key using secrets.token_urlsafe() in REPL
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", '-0akJP5907ZPDh1q0zgRKDePXLaDiRwObKDRdlAIHrI')
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get('SECURITY_PASSWORD_SALT', '72679148524296801418994703305798390574')
@@ -55,6 +56,9 @@ class Type(db.Model):
   name = db.Column(db.String(50), nullable=False)
   amount = db.Column(db.String(50))
   restaurants = db.relationship('Restaurant', backref='type', lazy=True)
+
+  def __repr__(self):
+    return f'{self.name}: {self.amount}'
 
 class Restaurant(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -136,6 +140,7 @@ class RestaurantListResource(Resource):
       app.logger.error(f"An error: {str(e)}")
       return {"message": "Error occurred"}, 500
 
+  @auth_required('token', 'session')
   def post(self):
     try:
       new_restaurant = Restaurant(
@@ -232,8 +237,6 @@ class TypeResource(Resource):
     db.session.commit()
     return '', 204
 
-api.add_resource(TypeResource, '/types/<int:id>')
-
 class TypeResource(Resource):
   def get(self, id):
     type = Type.query.get_or_404(id)
@@ -263,8 +266,7 @@ class CustomModelView(ModelView):
   def is_accessible(self):
     return (
       current_user.is_active and
-      current_user.is_authenticated and
-      current_user.has_role('superuser')
+      current_user.is_authenticated
     )
   
   def _handle_view(self, name, **kwargs):
@@ -278,7 +280,6 @@ class CustomModelView(ModelView):
       else:
         # Redirect to login
         return redirect(url_for('security.login', next=request.url))
-    return super()._handle_view(name, **kwargs)
 
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 
@@ -290,9 +291,9 @@ admin.add_view(CustomModelView(Restaurant, db.session))
 admin.add_view(CustomModelView(Type, db.session))
 
 admin.add_view(CustomModelView(Role, db.session))
-admin.add_view(CustomModelView(Role, db.session))
+admin.add_view(CustomModelView(User, db.session))
 
-@security.context_processor
+@app.security.context_processor
 def security_context_processor():
   return dict(
     admin_base_template=admin.base_template,
