@@ -4,7 +4,8 @@ from flask_admin import helpers as admin_helpers
 from flask_admin.contrib.sqla import ModelView
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow 
+# from marshmallow import Schema, fields, ValidationError
 from sqlalchemy.exc import IntegrityError
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password, current_user
 from flask_security.models import fsqla_v3 as fsqla
@@ -12,6 +13,7 @@ import os
 
 # Creates the Flask Application
 app = Flask(__name__)
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 # Generate the key using secrets.token_urlsafe() in REPL
@@ -77,7 +79,6 @@ class RestaurantSchema(ma.Schema):
 class TypeSchema(ma.Schema):
   class Meta:
     fields = ("id", "name", "amount")
-    # not sure users need access to the 1:m relationship???
     model = Type
   
 restaurant_schema = RestaurantSchema()
@@ -120,8 +121,16 @@ with app.app_context():
 
 class RestaurantListResource(Resource):
   def get(self):
+    print("get method called")
     try:
-      restaurants = Restaurant.query.all()
+      name = request.args.get('name')
+      print(f"query param name: {name}")
+
+      if name:
+        restaurants = Restaurant.query.filter(Restaurant.name.ilike(f"%{name}%")).all()
+      else:
+        restaurants = Restaurant.query.all()
+      
       return restaurants_schema.dump(restaurants)
     except Exception as e:
       app.logger.error(f"An error: {str(e)}")
@@ -143,14 +152,42 @@ class RestaurantListResource(Resource):
       return restaurant_schema.dump(new_restaurant)
     except IntegrityError:
       return {"message": "Invalid type_id"}, 400
+
+api.add_resource(RestaurantListResource, '/restaurants')
     
-# LEFT OFF HERE> NEED TO ADD GET BY ID< PUT< DELETE
 class RestaurantResource(Resource):
   def get(self, id):
     restaurant = Restaurant.query.get_or_404(id)
     return restaurant_schema.dump(restaurant)
+  def patch(self, id):
+    restaurant = Restaurant.query.get_or_404(id)
 
-api.add_resource(RestaurantListResource, '/restaurants')
+    if 'name' in request.json:
+      restaurant.name = request.json['name']
+    if 'address' in request.json:
+      restaurant.address = request.json['address']
+    if 'website' in request.json:
+      restaurant.website = request.json['website']
+    if 'imageUrl' in request.json:
+      restaurant.imageUrl = request.json['imageUrl']
+    if 'latitude' in request.json:
+      restaurant.latitude = request.json['latitude']
+    if 'longitude' in request.json:
+      restaurant.longitude = request.json['longitude']
+    if 'type_id' in request.json:
+      restaurant.type_id = request.json['type_id']
+
+    db.session.commit()
+    return restaurant_schema.dump(restaurant)
+
+  def delete(self, id):
+    restaurant = Restaurant.query.get_or_404(id)
+    db.session.delete(restaurant)
+    db.session.commit()
+    return '', 204
+
+api.add_resource(RestaurantResource, '/restaurants/<int:id>')
+
 
 class TypeListResource(Resource):
   def get(self):
@@ -160,8 +197,65 @@ class TypeListResource(Resource):
     except Exception as e:
       app.logger.error(f"An error: {str(e)}")
       return {"message": "Error occurred"}, 500
+  def post(self):
+    try:
+      new_type = Type(
+        name=request.json['name'],
+        amount=request.json['amount']
+      )
+      db.session.add(new_type)
+      db.session.commit()
+      return type_schema.dump(new_type)
+    except IntegrityError:
+      return {"message": "Invalid type_id"}, 400
 
 api.add_resource(TypeListResource, '/types')
+
+class TypeResource(Resource):
+  def get(self, id):
+    type = Type.query.get_or_404(id)
+    return type_schema.dump(type)
+  def patch(self, id):
+    type = Type.query.get_or_404(id)
+
+    if 'name' in request.json:
+      type.name = request.json['name']
+    if 'amount' in request.json:
+      type.amount = request.json['amount']
+
+    db.session.commit()
+    return type_schema.dump(type)
+
+  def delete(self, id):
+    type = Type.query.get_or_404(id)
+    db.session.delete(type)
+    db.session.commit()
+    return '', 204
+
+api.add_resource(TypeResource, '/types/<int:id>')
+
+class TypeResource(Resource):
+  def get(self, id):
+    type = Type.query.get_or_404(id)
+    return type_schema.dump(type)
+  def patch(self, id):
+    type = Type.query.get_or_404(id)
+
+    if 'name' in request.json:
+      type.name = request.json['name']
+    if 'amount' in request.json:
+      type.amount = request.json['amount']
+
+    db.session.commit()
+    return type_schema.dump(type)
+
+  def delete(self, id):
+    type = Type.query.get_or_404(id)
+    db.session.delete(type)
+    db.session.commit()
+    return '', 204
+
+api.add_resource(TypeResource, '/types/<int:id>')
 
 # Admin Views
 
