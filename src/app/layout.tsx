@@ -8,10 +8,11 @@ import Footer from "@/components/Footer";
 import { PrismicPreview } from "@prismicio/next";
 
 
+
 const mulish = Mulish({
   subsets: ['latin'],
   variable: '--font-mulish',
-  display: 'swap',
+  display: 'swap'
 })
 
 const mPlusRounded1c = M_PLUS_Rounded_1c({
@@ -45,6 +46,7 @@ export default function RootLayout({
         <Header/>
         {children}
        <Footer/>
+       <div className="fixed bg-gradient-to-tr from-slate-900 to-gray-900 z-[-1] inset-0"/>
        <PrismicPreview repositoryName={repositoryName}/>
        </body>
     </html>

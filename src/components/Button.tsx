@@ -9,7 +9,7 @@ export default function Button ({
 
     <PrismicNextLink
   
-     className={clsx("black w-fit bg-teal-900 transition-color duration-200 ease-in-out py-3 px-12 rounded-full font-display text-white font-bold text-base tracking-wide mb-8 md:mb-10", className)}
+     className={clsx("black w-fit bg-rose-950 transition-color duration-200 ease-in-out py-3 px-12 rounded-full font-display text-white font-bold text-base tracking-wide mb-8 md:mb-10 border-amber-50 border-2", className)}
 
      {...restProps}
      />
