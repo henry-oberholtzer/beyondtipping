@@ -103,11 +103,37 @@ class RestaurantListResource(Resource):
       return {"message": "Invalid type_id"}, 400
 api.add_resource(RestaurantListResource, '/restaurants')
     
-# LEFT OFF HERE> NEED TO ADD GET BY ID< PUT< DELETE
 class RestaurantResource(Resource):
   def get(self, id):
     restaurant = Restaurant.query.get_or_404(id)
     return restaurant_schema.dump(restaurant)
+  def patch(self, id):
+    restaurant = Restaurant.query.get_or_404(id)
+
+    if 'name' in request.json:
+      restaurant.name = request.json['name']
+    if 'address' in request.json:
+      restaurant.address = request.json['address']
+    if 'website' in request.json:
+      restaurant.website = request.json['website']
+    if 'imageUrl' in request.json:
+      restaurant.imageUrl = request.json['imageUrl']
+    if 'latitude' in request.json:
+      restaurant.latitude = request.json['latitude']
+    if 'longitude' in request.json:
+      restaurant.longitude = request.json['longitude']
+    if 'type_id' in request.json:
+      restaurant.type_id = request.json['type_id']
+
+    db.session.commit()
+    return restaurant_schema.dump(restaurant)
+
+  def delete(self, id):
+    restaurant = Restaurant.query.get_or_404(id)
+    db.session.delete(restaurant)
+    db.session.commit()
+    return '', 204
+
 api.add_resource(RestaurantResource, '/restaurants/<int:id>')
 
 
