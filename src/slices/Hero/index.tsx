@@ -13,7 +13,7 @@ const components: JSXMapSerializer = {
       className="md:mb-8 mb-4 mt-12 first:mt-0 last:mb-0">
       {children}</Heading>
   ),
-  paragraph: ({ children }) => (<p className="text-xl text-center font-body mt-2 mb-4 md:mb-8 max-w-md">{children}</p>)
+  paragraph: ({ children }) => (<p className="text-xl font-body mt-2 mb-4 md:mb-8 max-w-md">{children}</p>)
 }
 
 /**
@@ -26,27 +26,56 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
  */
 const Hero = ({ slice }: HeroProps): JSX.Element => {
   return (
-    <Bounded
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-    >
+    <>
+      {slice.variation === "default" && (
+        <Bounded
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+        >
 
-      <div className="grid grid-cols-1 place-items-center txt-center">
-        <PrismicRichText field={slice.primary.heading}
-          components={components} />
-        <PrismicRichText field={slice.primary.body} components={components} />
-        <Button field={slice.primary.button_link} className="mb-8 md:mb-10">
-          <>{slice.primary.button_text}</>
-        </Button>
-        <PrismicNextImage
-          field={slice.primary.image}
-          className="dop-shaddow-xl max-w-4xl w-full" />
- 
-      </div>
+          <div className="grid grid-cols-1 place-items-center txt-center">
 
-    </Bounded>
-    
+            <PrismicRichText field={slice.primary.heading}
+              components={components} />
+            <PrismicRichText field={slice.primary.body} components={components} />
+            <Button field={slice.primary.button_link} className="mb-8 md:mb-10">
+              <>{slice.primary.button_text}</>
+            </Button>
+            <PrismicNextImage
+              field={slice.primary.image}
+              className="dop-shaddow-xl max-w-4xl w-full" />
+
+          </div>
+
+        </Bounded>
+      )}
+
+      {slice.variation === "horizontal" && (
+        <Bounded
+          data-slice-type={slice.slice_type}
+          data-slice-variation={slice.variation}
+        >
+
+          <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
+            <div className="grid grid-rows-[1fr,auto,auto] gap-8 h-fit">
+              <PrismicRichText field={slice.primary.heading}
+                components={components} />
+              <PrismicRichText field={slice.primary.body} components={components} />
+              <Button field={slice.primary.button_link} className="mb-8 md:mb-10">
+                <>{slice.primary.button_text}</>
+              </Button>
+            </div>
+            <PrismicNextImage
+              field={slice.primary.image}
+              className="dop-shaddow-xl max-w-4xl w-full" />
+
+          </div>
+
+        </Bounded>
+      )}
+    </>
   );
+
 };
 
 export default Hero;
