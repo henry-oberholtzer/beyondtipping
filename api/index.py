@@ -1,11 +1,13 @@
 from flask import Flask, request
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow 
+# from marshmallow import Schema, fields, ValidationError
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 import os
 
 app = Flask(__name__)
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance/test.db')
 db = SQLAlchemy(app)
@@ -77,8 +79,16 @@ def seed_db():
 
 class RestaurantListResource(Resource):
   def get(self):
+    print("get method called")
     try:
-      restaurants = Restaurant.query.all()
+      name = request.args.get('name')
+      print(f"query param name: {name}")
+
+      if name:
+        restaurants = Restaurant.query.filter(Restaurant.name.ilike(f"%{name}%")).all()
+      else:
+        restaurants = Restaurant.query.all()
+      
       return restaurants_schema.dump(restaurants)
     except Exception as e:
       app.logger.error(f"An error: {str(e)}")
@@ -100,6 +110,7 @@ class RestaurantListResource(Resource):
       return restaurant_schema.dump(new_restaurant)
     except IntegrityError:
       return {"message": "Invalid type_id"}, 400
+
 api.add_resource(RestaurantListResource, '/restaurants')
     
 class RestaurantResource(Resource):
