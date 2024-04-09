@@ -80,7 +80,11 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-type PageDocumentDataSlicesSlice = HeroSlice;
+type PageDocumentDataSlicesSlice =
+  | MapSlice
+  | CallToActionSlice
+  | HeaderSlice
+  | HeroSlice;
 
 /**
  * Content for Page documents
@@ -235,6 +239,133 @@ export type AllDocumentTypes =
   | HomepageDocument
   | PageDocument
   | SettingsDocument;
+
+/**
+ * Primary content in *CallToAction → Primary*
+ */
+export interface CallToActionSliceDefaultPrimary {
+  /**
+   * Heading field in *CallToAction → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Body field in *CallToAction → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Button Link field in *CallToAction → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField;
+
+  /**
+   * Button Text field in *CallToAction → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for CallToAction Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CallToActionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CallToActionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CallToAction*
+ */
+type CallToActionSliceVariation = CallToActionSliceDefault;
+
+/**
+ * CallToAction Shared Slice
+ *
+ * - **API ID**: `call_to_action`
+ * - **Description**: CallToAction
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CallToActionSlice = prismic.SharedSlice<
+  "call_to_action",
+  CallToActionSliceVariation
+>;
+
+/**
+ * Primary content in *Header → Primary*
+ */
+export interface HeaderSliceDefaultPrimary {
+  /**
+   * Title field in *Header → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Body field in *Header → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Header Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeaderSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeaderSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Header*
+ */
+type HeaderSliceVariation = HeaderSliceDefault;
+
+/**
+ * Header Shared Slice
+ *
+ * - **API ID**: `header`
+ * - **Description**: Header
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
 /**
  * Primary content in *Hero → Primary*
@@ -433,6 +564,14 @@ declare module "@prismicio/client" {
       SettingsDocumentData,
       SettingsDocumentDataNavigationItem,
       AllDocumentTypes,
+      CallToActionSlice,
+      CallToActionSliceDefaultPrimary,
+      CallToActionSliceVariation,
+      CallToActionSliceDefault,
+      HeaderSlice,
+      HeaderSliceDefaultPrimary,
+      HeaderSliceVariation,
+      HeaderSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceHorizontalPrimary,
