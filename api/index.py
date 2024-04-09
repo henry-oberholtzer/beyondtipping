@@ -1,4 +1,6 @@
 from flask import Flask, request
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
@@ -6,10 +8,13 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 import os
 
 app = Flask(__name__)
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance/test.db')
 db = SQLAlchemy(app)
 api = Api(app)
+
+
 
 class Type(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -121,6 +126,13 @@ class TypeListResource(Resource):
 
 api.add_resource(TypeListResource, '/types')
 
+# Admin Views
+
+app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+
+admin = Admin(app, name='beyondtipping', template_mode='bootstrap3')
+admin.add_view(ModelView(Restaurant, db.session))
+admin.add_view(ModelView(Type, db.session))
 
 if __name__ == "__main__":
   app.run(debug=True)
