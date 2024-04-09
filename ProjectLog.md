@@ -26,6 +26,7 @@
 - El Gaucho (20% Service fee)
 - Ava Gene's (20% Service fee)
 - Cafe Olli (20% Service fee)
+- Il Paffutto (prev.Fermenter) (Flat)
 
 # MVP / Features
   - A list of locations that have moved beyond tipping to either a service charge or flat pricing for a livable wage
