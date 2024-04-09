@@ -15,7 +15,6 @@ export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 const Hero = ({ slice }: HeroProps): JSX.Element => {
   return (
     <Bounded
-    
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -27,7 +26,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
         )
       }} />
       <PrismicRichText field={slice.primary.body} components={{
-        paragraph: ({children}) => (<p className="text-xl text-center font-body mb-4 md:mb-8 max-w-md">{children}</p>)
+        paragraph: ({children}) => (<p className="text-xl text-center font-body mt-2 mb-4 md:mb-8 max-w-md">{children}</p>)
       }} />
       <Button field={slice.primary.button_link} className="mb-8 md:mb-10">
         <>{slice.primary.button_text}</>
