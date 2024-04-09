@@ -12,7 +12,8 @@ const config: Config = {
       fontFamily: {
         body: ["var(--font-mulish)"],
         display: ["var(--font-mPlusRounded1c)"]
-      }
+      },
+      textColor: { 'white': '#fffbeb', },
     },
   },
   plugins: [],
