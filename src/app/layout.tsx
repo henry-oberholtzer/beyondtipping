@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Mulish, M_PLUS_Rounded_1c } from "next/font/google";
 import "./globals.css";
 import clsx from 'clsx';
-import { createClient } from "@/prismicio";
+import { createClient, repositoryName } from "@/prismicio";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { PrismicPreview } from "@prismicio/next";
 
 
 const mulish = Mulish({
@@ -44,6 +45,7 @@ export default function RootLayout({
         <Header/>
         {children}
        <Footer/>
+       <PrismicPreview repositoryName={repositoryName}/>
        </body>
     </html>
   );
