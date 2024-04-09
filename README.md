@@ -1,7 +1,7 @@
 # Beyond Tipping
 _by [Brianca Knight](https://github.com/BriancaKnight)  | [Henry Oberholtzer](https://github.com/henry-oberholtzer) | [Kim Robinson](https://github.com/kimmykokonut) | [Noah Kise](https://github.com/NoahKise)_
 
-* Splash page here
+* Splash page screenshot here?
 
 ---
 ### <u>Jump to section</u>
@@ -46,7 +46,7 @@ An application that lists restaurants that have removed the tipping model, optin
 ## Prerequisites
 
 #### Install Postman
-(Optional) [Download and install Postman](https://www.postman.com/downloads/).
+(Optional) Download and install [Postman] to test API calls(https://www.postman.com/downloads/).
 
 #### Code Editor
   To view or edit the code, you will need a code editor or text editor. The open-source code editor we used is VisualStudio Code.
@@ -83,7 +83,7 @@ $npm i clsx
 
 9. Run local server: `$ npm run dev`
 (This will be located at: http://localhost:3000/)
-(this command should run front and back end at the same time-http://127.0.0.1:8000/)
+(_this command should run front and back end (http://127.0.0.1:8000/) at the same time_)
 
 ### Flask
 
@@ -102,12 +102,13 @@ $npm i clsx
 
 ### Database
 
-- SQLite is integrated into Flask
-- ??? PW .env?
+- SQLite is used as the database engine to store the Restaurant and Type data. SQLite is a widely used relational database management system (RDBMS) that doesn’t need a SQL server to work.  It is bundled into Flask and the file is located at beyondtipping/api/instance/test.db (though you don't need to access the file)
+- Already setup, but if curious: To initialize or seed the database, this can be done through the Python shell.  [More info here](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/quickstart/)
 
 #### Launch the API
 1) Navigate to api directory using the MacOS Terminal or Windows Powershell.
-2) Run the command `flask run` to have access to the API in Postman or browser via flask rest(not sure if this exists?) `http://localhost:5000/admin`
+2)  Make sure the webapi server is running at http://127.0.0.1:8000, otherwise in the terminal run the command `python index.py` to run the server to access to the API via Postman (or browser via flask rest admin(not sure if this exists?) `http://127.0.0.1:8000/admin`)
+* HENRY CONFIRM INFO*********************
 ---
 ???
 ---
@@ -123,36 +124,40 @@ $npm i clsx
 
 * API Endpoints
 
-- Base Url: `https://localhost:5000`
+- Base Url: `http://127.0.0.1:8000`
 
 #### HTTP Request Structure
 ```
 GET /restaurants  | Gets list of restaurants from database  
 POST /restaurants | Creates new restaurant object
 GET /restaurants/{id} | Gets restaurant by id
-PUT /restaurants/{id} | Edits restaurant by id
+PATCH /restaurants/{id} | Edits restaurant by id
 DELETE /restaurants/{id}  | Deletes restaurant by id
 GET /types  | Gets list of tipping types
-GET /types/{id} | Gets tip type by id
+POST /types | Creates new type object
+GET /types/{id} | Gets type by id
+PATCH /types/{id} | Edits type by id
+DELETE /types/{id}  | Deletes type by id
 ```
 ---
 
 #### Example Query
 ```
-https://localhost:5000/restaurants/1
+http://127.0.0.1:8000/restaurants/1
 ```
 
 #### Sample JSON Response
 ```
   {
-        restaurantId: 1,
-        name: "Bernstein's Bagels",
-        address: "816 N Russell St, Portland, OR 97227",
-        coordinates: "45.54178453985534, -122.67473068332497",
-        websiteUrl: "https://bernsteinsbagels.com/",
-        imageUrl: "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
-        typeId: 1
-    }
+    "id": 1,
+    "name": "Bernstein's Bagels",
+    "address": "816 N Russell St, Portland, OR 97227",
+    "website": "https://bernsteinsbagels.com/",
+    "imageUrl": "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
+    "latitude": 45.54178453985534,
+    "longitude": -122.67473068332497,
+    "type_id": 1
+  }
 ```
 
 #### Path Parameters
@@ -160,24 +165,54 @@ https://localhost:5000/restaurants/1
 | :---: | :---: | :---: | :---: | --- |
 | name | string | none | true | Return matches by name.
 
-#### Example Query
+#### Example Query with path parameter
 ```
-https://localhost:5000/restaurants/?name=bagel
+http://127.0.0.1:8000/restaurants?name=bagel
 ```
 
 #### Sample JSON Response
 ```
-{
-        restaurantId: 1,
-        name: "Bernstein's Bagels",
-        address: "816 N Russell St, Portland, OR 97227",
-        coordinates: "45.54178453985534, -122.67473068332497",
-        websiteUrl: "https://bernsteinsbagels.com/",
-        imageUrl: "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
-        typeId: 1
-    }
+  {
+    "id": 1,
+    "name": "Bernstein's Bagels",
+    "address": "816 N Russell St, Portland, OR 97227",
+    "website": "https://bernsteinsbagels.com/",
+    "imageUrl": "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
+    "latitude": 45.54178453985534,
+    "longitude": -122.67473068332497,
+    "type_id": 1
+  }
+```
+#### Example Query to create restaurant entry
+```
+POST http://127.0.0.1:8000/restaurants
+Content-Type: application/json
+
+ {
+    "name": "Gracie's Apizza",
+    "address": "7304 N Leavitt Ave, Portland, OR 97203",
+    "website": "https://www.graciesapizza.com/",
+    "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
+    "latitude": 45.589974368346105,
+    "longitude": -122.75392355397106,
+    "type_id": 1
+  }
 ```
 
+#### Sample JSON Response
+200 OK
+```
+{
+    "id": 2, 
+    "name": "Gracie's Apizza",
+    "address": "7304 N Leavitt Ave, Portland, OR 97203",
+    "website": "https://www.graciesapizza.com/",
+    "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
+    "latitude": 45.589974368346105,
+    "longitude": -122.75392355397106,
+    "type_id": 1
+  }
+```
 
 ---
 
