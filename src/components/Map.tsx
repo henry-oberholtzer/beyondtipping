@@ -3,12 +3,26 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { Icon } from "leaflet";
 import "../App.css"
+import { getRestaurants } from "../api_helper";
+import { useState, useEffect } from "react";
 
-interface TypeData {
-    [key: number]: { name: string; amount: string };
-}
 
 export const Map = () => {
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+        const fetchRestaurants = async () => {
+            try {
+                const fetchedRestaurants = await getRestaurants();
+                console.log(fetchedRestaurants);
+                setRestaurants(fetchedRestaurants);
+            } catch (error) {
+                console.error("Error fetching restaurants:", error);
+            }
+        };
+        fetchRestaurants();
+    }, []);
+
     const markers: { geocode: [number, number]; popUp: string; address: string; websiteUrl: string; imageUrl: string; typeId: number; }[] = [
         {
             geocode: [45.54178453985534, -122.67473068332497],
@@ -108,6 +122,10 @@ export const Map = () => {
         }
     ];
 
+    interface TypeData {
+        [key: number]: { name: string; amount: string };
+    }
+
     const typeData: TypeData = {
         1: { name: 'Flat Fee', amount: '' },
         2: { name: 'Service Fee', amount: '18%' },
@@ -129,7 +147,6 @@ export const Map = () => {
 
     return (
         <>
-            <h1>beyondtipping</h1>
             <MapContainer center={[45.512794, -122.679565]} zoom={13}>
                 {/* <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
