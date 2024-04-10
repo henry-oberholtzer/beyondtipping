@@ -8,4 +8,5 @@ export const components = {
   header: dynamic(() => import("./Header")),
   hero: dynamic(() => import("./Hero")),
   map: dynamic(() => import("./Map")),
+  restaurant_list: dynamic(() => import("./RestaurantList")),
 };
