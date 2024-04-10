@@ -6,7 +6,22 @@
 		"items": [
 			{
 				"__TYPE__": "GroupItemContent",
-				"value": []
+				"value": [
+					[
+						"data",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Eiusmod mollit esse tempor cupidatat aliquip Lorem. Fugiat cillum minim laborum laboris esse ipsum aliquip ex est aute ullamco. Dolor et sunt consectetur et."
+									}
+								}
+							]
+						}
+					]
+				]
 			}
 		]
 	}
