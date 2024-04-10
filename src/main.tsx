@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import { getRestaurantById, getRestaurants } from './api_helper.ts';
+import RestaurantList from './components/RestaurantList.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,9 +23,10 @@ const router = createBrowserRouter([
       },
       {
         path: "restaurants",
-        loader: () => {
-          return getRestaurants();
-        },
+        element: <RestaurantList />,
+        // loader: () => {
+        //   return getRestaurants();
+        // },
       },
       {
         path: "restaurants/:id",
