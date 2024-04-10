@@ -1,37 +1,53 @@
+import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
+import { Link } from "react-router-dom";
+import { getRestaurants } from "../api_helper";
+// import { useOutletContext } from "react-router-dom";
 
 interface RestaurantListProps {
-  restaurants: {
-    id: number;
-    name: string;
-    address: string;
-    imageUrl: string;
-    website: string;
-    // type_id: number;
-  }[];
-  onRestaurantClick: (id: number) => void;
+  name: string;
+  id: number;
+  address: string;
+  website: string;
+  imageUrl: string;
 }
 
-const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, onRestaurantClick }) => {
+const RestaurantList: React.FC = () => {
+  // const  restaurants = useOutletContext() as Restaurant[];
+  
+  const [restaurants, setRestaurants] = useState<RestaurantListProps[]>([]);
+
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await getRestaurants();
+        setRestaurants(response);
+      } catch (error) {
+        console.error(`Error: ${error}`);
+      }
+    };
+    fetchRestaurants();
+  }, []);
 
   return (
     <div>
       <h2>Restaurant List renders HERE</h2>
       <hr />
       {restaurants.map((restaurant) => (
-        <Restaurant
-          key={restaurant.id}
-          name={restaurant.name}
-          address={restaurant.address}
-          imageUrl={restaurant.imageUrl}
-          website={restaurant.website}
-          whenRestaurantClicked={() => onRestaurantClick(restaurant.id)}
-          id={restaurant.id}
-        />
+        <Link to={`restaurants/${restaurant.id}`} key={restaurant.id}>
+          <Restaurant
+            key={restaurant.id}
+            name={restaurant.name}
+            address={restaurant.address}
+            imageUrl={restaurant.imageUrl}
+            website={restaurant.website}
+            id={restaurant.id}
+          />
+          </Link>
       ))}
-      <hr />
-    </div>
+          <hr />
+        </div>
 
-  );
+      );
 }
-export default RestaurantList;
+      export default RestaurantList;
