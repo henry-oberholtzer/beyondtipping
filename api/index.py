@@ -5,8 +5,8 @@ from flask_admin.contrib.sqla import ModelView
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow 
-# from marshmallow import Schema, fields, ValidationError
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import or_
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password, current_user
 from flask_security.models import fsqla_v3 as fsqla
 import os
@@ -125,13 +125,16 @@ with app.app_context():
 
 class RestaurantListResource(Resource):
   def get(self):
-    print("get method called")
     try:
-      name = request.args.get('name')
-      print(f"query param name: {name}")
+      search_term = request.args.get('query')
 
-      if name:
-        restaurants = Restaurant.query.filter(Restaurant.name.ilike(f"%{name}%")).all()
+      if search_term:
+        restaurants = Restaurant.query.filter(
+          or_(
+            Restaurant.name.ilike(f"%{search_term}%"),
+            Restaurant.address.ilike(f"%{search_term}%")
+            )
+            ).all()
       else:
         restaurants = Restaurant.query.all()
       
