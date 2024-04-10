@@ -482,9 +482,67 @@ export type HeaderSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Header → Primary*
+ */
+export interface HeaderSliceWithButtonPrimary {
+  /**
+   * Title field in *Header → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Body field in *Header → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.body
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  body: prismic.RichTextField;
+
+  /**
+   * Button Link field in *Header → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.button_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField;
+
+  /**
+   * Button Text field in *Header → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.button_text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  button_text: prismic.KeyTextField;
+}
+
+/**
+ * With Button variation for Header Slice
+ *
+ * - **API ID**: `withButton`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeaderSliceWithButton = prismic.SharedSliceVariation<
+  "withButton",
+  Simplify<HeaderSliceWithButtonPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *Header*
  */
-type HeaderSliceVariation = HeaderSliceDefault;
+type HeaderSliceVariation = HeaderSliceDefault | HeaderSliceWithButton;
 
 /**
  * Header Shared Slice
@@ -646,6 +704,21 @@ type HeroSliceVariation = HeroSliceDefault | HeroSliceHorizontal;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Primary content in *Map → Items*
+ */
+export interface MapSliceDefaultItem {
+  /**
+   * Data field in *Map → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: map.items[].data
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  data: prismic.RichTextField;
+}
+
+/**
  * Default variation for Map Slice
  *
  * - **API ID**: `default`
@@ -655,7 +728,7 @@ export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 export type MapSliceDefault = prismic.SharedSliceVariation<
   "default",
   Record<string, never>,
-  never
+  Simplify<MapSliceDefaultItem>
 >;
 
 /**
@@ -749,8 +822,10 @@ declare module "@prismicio/client" {
       CallToActionSliceDefault,
       HeaderSlice,
       HeaderSliceDefaultPrimary,
+      HeaderSliceWithButtonPrimary,
       HeaderSliceVariation,
       HeaderSliceDefault,
+      HeaderSliceWithButton,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceHorizontalPrimary,
@@ -758,6 +833,7 @@ declare module "@prismicio/client" {
       HeroSliceDefault,
       HeroSliceHorizontal,
       MapSlice,
+      MapSliceDefaultItem,
       MapSliceVariation,
       MapSliceDefault,
       RestaurantListSlice,
