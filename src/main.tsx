@@ -6,9 +6,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import RestaurantList from './components/RestaurantList.tsx';
 import { getRestaurantById, getRestaurants } from './api_helper.ts'
 import { Map } from './components/Map.tsx';
 import ErrorPage from './components/ErrorPage.tsx';
+
 
 const router = createBrowserRouter([
   {
@@ -22,9 +24,10 @@ const router = createBrowserRouter([
       },
       {
         path: "restaurants",
-        loader: () => {
-          return getRestaurants();
-        },
+        element: <RestaurantList />,
+        // loader: () => {
+        //   return getRestaurants();
+        // },
       },
       {
         path: "restaurants/:id",
