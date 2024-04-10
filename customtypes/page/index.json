@@ -17,6 +17,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "restaurant_list": {
+              "type": "SharedSlice"
+            },
             "bios": {
               "type": "SharedSlice"
             },

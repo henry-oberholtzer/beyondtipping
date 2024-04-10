@@ -164,6 +164,7 @@ export type HomepageDocument<Lang extends string = string> =
   >;
 
 type PageDocumentDataSlicesSlice =
+  | RestaurantListSlice
   | BiosSlice
   | MapSlice
   | CallToActionSlice
@@ -326,21 +327,6 @@ export type AllDocumentTypes =
   | SettingsDocument;
 
 /**
- * Primary content in *Bios → Primary*
- */
-export interface BiosSliceDefaultPrimary {
-  /**
-   * Heading field in *Bios → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: bios.primary.heading
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  heading: prismic.RichTextField;
-}
-
-/**
  * Primary content in *Bios → Items*
  */
 export interface BiosSliceDefaultItem {
@@ -364,7 +350,7 @@ export interface BiosSliceDefaultItem {
  */
 export type BiosSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Simplify<BiosSliceDefaultPrimary>,
+  Record<string, never>,
   Simplify<BiosSliceDefaultItem>
 >;
 
@@ -686,6 +672,51 @@ type MapSliceVariation = MapSliceDefault;
  */
 export type MapSlice = prismic.SharedSlice<"map", MapSliceVariation>;
 
+/**
+ * Primary content in *RestaurantList → Primary*
+ */
+export interface RestaurantListSliceDefaultPrimary {
+  /**
+   * Text field in *RestaurantList → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: restaurant_list.primary.text
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for RestaurantList Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type RestaurantListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<RestaurantListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *RestaurantList*
+ */
+type RestaurantListSliceVariation = RestaurantListSliceDefault;
+
+/**
+ * RestaurantList Shared Slice
+ *
+ * - **API ID**: `restaurant_list`
+ * - **Description**: RestaurantList
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type RestaurantListSlice = prismic.SharedSlice<
+  "restaurant_list",
+  RestaurantListSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -709,7 +740,6 @@ declare module "@prismicio/client" {
       SettingsDocumentDataNavigationItem,
       AllDocumentTypes,
       BiosSlice,
-      BiosSliceDefaultPrimary,
       BiosSliceDefaultItem,
       BiosSliceVariation,
       BiosSliceDefault,
@@ -730,6 +760,10 @@ declare module "@prismicio/client" {
       MapSlice,
       MapSliceVariation,
       MapSliceDefault,
+      RestaurantListSlice,
+      RestaurantListSliceDefaultPrimary,
+      RestaurantListSliceVariation,
+      RestaurantListSliceDefault,
     };
   }
 }
