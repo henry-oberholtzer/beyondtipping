@@ -1,0 +1,63 @@
+{
+  "format": "custom",
+  "id": "bio",
+  "label": "Bio",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Name",
+          "placeholder": ""
+        }
+      },
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "contribution": {
+        "type": "Text",
+        "config": {
+          "label": "Contribution",
+          "placeholder": ""
+        }
+      },
+      "blurb": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Blurb",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,strong,em"
+        }
+      },
+      "avatar": {
+        "type": "Image",
+        "config": {
+          "label": "Avatar",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "button_text": {
+        "type": "Text",
+        "config": {
+          "label": "Button Text",
+          "placeholder": ""
+        }
+      },
+      "button_link": {
+        "type": "Link",
+        "config": {
+          "label": "Button Link",
+          "placeholder": "",
+          "select": null
+        }
+      }
+    }
+  }
+}

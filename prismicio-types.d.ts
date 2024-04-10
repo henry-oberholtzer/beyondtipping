@@ -4,6 +4,89 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+/**
+ * Content for Bio documents
+ */
+interface BioDocumentData {
+  /**
+   * Name field in *Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Contribution field in *Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio.contribution
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  contribution: prismic.KeyTextField;
+
+  /**
+   * Blurb field in *Bio*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio.blurb
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  blurb: prismic.RichTextField;
+
+  /**
+   * Avatar field in *Bio*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio.avatar
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  avatar: prismic.ImageField<never>;
+
+  /**
+   * Button Text field in *Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio.button_text
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  button_text: prismic.KeyTextField;
+
+  /**
+   * Button Link field in *Bio*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio.button_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button_link: prismic.LinkField;
+}
+
+/**
+ * Bio document from Prismic
+ *
+ * - **API ID**: `bio`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BioDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<BioDocumentData>, "bio", Lang>;
+
 type HomepageDocumentDataSlicesSlice = HeroSlice;
 
 /**
@@ -81,6 +164,7 @@ export type HomepageDocument<Lang extends string = string> =
   >;
 
 type PageDocumentDataSlicesSlice =
+  | BiosSlice
   | MapSlice
   | CallToActionSlice
   | HeaderSlice
@@ -236,9 +320,67 @@ export type SettingsDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | BioDocument
   | HomepageDocument
   | PageDocument
   | SettingsDocument;
+
+/**
+ * Primary content in *Bios → Primary*
+ */
+export interface BiosSliceDefaultPrimary {
+  /**
+   * Heading field in *Bios → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bios.primary.heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  heading: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *Bios → Items*
+ */
+export interface BiosSliceDefaultItem {
+  /**
+   * bio field in *Bios → Items*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bios.items[].bio
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  bio: prismic.ContentRelationshipField<"bio">;
+}
+
+/**
+ * Default variation for Bios Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BiosSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BiosSliceDefaultPrimary>,
+  Simplify<BiosSliceDefaultItem>
+>;
+
+/**
+ * Slice variation for *Bios*
+ */
+type BiosSliceVariation = BiosSliceDefault;
+
+/**
+ * Bios Shared Slice
+ *
+ * - **API ID**: `bios`
+ * - **Description**: Bios
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BiosSlice = prismic.SharedSlice<"bios", BiosSliceVariation>;
 
 /**
  * Primary content in *CallToAction → Primary*
@@ -554,6 +696,8 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BioDocument,
+      BioDocumentData,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -564,6 +708,11 @@ declare module "@prismicio/client" {
       SettingsDocumentData,
       SettingsDocumentDataNavigationItem,
       AllDocumentTypes,
+      BiosSlice,
+      BiosSliceDefaultPrimary,
+      BiosSliceDefaultItem,
+      BiosSliceVariation,
+      BiosSliceDefault,
       CallToActionSlice,
       CallToActionSliceDefaultPrimary,
       CallToActionSliceVariation,
