@@ -6,12 +6,38 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import { getRestaurantById, getRestaurants } from './api_helper.ts';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />
-  }
+    element: <App />,
+    errorElement: <App />,
+    children: [
+      {
+        path: "map",
+        loader: () => {
+          return getRestaurants();
+        },
+      },
+      {
+        path: "restaurants",
+        loader: () => {
+          return getRestaurants();
+        },
+      },
+      {
+        path: "restaurants/:id",
+        loader: ({ params }) => {
+          return getRestaurantById(params.id)
+        },
+      },
+      {
+        path: "/about",
+      },
+    ]
+  },
+
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
