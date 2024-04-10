@@ -1,18 +1,19 @@
+import Icon from './components/Icon'
+import Button from './components/Button'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Map } from './components/Map';
+import Bounded from './components/Bounded'
 
 function App() {
-
   return (
     <>
-      <h1>APP PAGE</h1>
-      <Router>
-        <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/map" element={<Map />} />
-        </Routes>
-      </Router>
+      <Bounded>
+        <Icon/>
+        <Button
+        to={"X"}>
+          OK
+        </Button>
+
+      </Bounded>
     </>
   )
 }
