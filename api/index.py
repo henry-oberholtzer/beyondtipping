@@ -185,6 +185,7 @@ class RestaurantResource(Resource):
     db.session.commit()
     return restaurant_schema.dump(restaurant)
 
+  @auth_required('token', 'session')
   def delete(self, id):
     restaurant = Restaurant.query.get_or_404(id)
     db.session.delete(restaurant)
@@ -231,6 +232,7 @@ class TypeResource(Resource):
     db.session.commit()
     return type_schema.dump(type)
 
+  @auth_required('token', 'session')
   def delete(self, id):
     type = Type.query.get_or_404(id)
     db.session.delete(type)
@@ -252,6 +254,7 @@ class TypeResource(Resource):
     db.session.commit()
     return type_schema.dump(type)
 
+  @auth_required('token', 'session')
   def delete(self, id):
     type = Type.query.get_or_404(id)
     db.session.delete(type)
