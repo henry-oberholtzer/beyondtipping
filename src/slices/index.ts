@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  bios: dynamic(() => import("./Bios")),
   call_to_action: dynamic(() => import("./CallToAction")),
   header: dynamic(() => import("./Header")),
   hero: dynamic(() => import("./Hero")),

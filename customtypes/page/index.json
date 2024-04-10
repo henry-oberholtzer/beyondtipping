@@ -17,6 +17,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "bios": {
+              "type": "SharedSlice"
+            },
             "map": {
               "type": "SharedSlice"
             },
