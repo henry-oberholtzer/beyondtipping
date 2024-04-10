@@ -1,10 +1,47 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import './index.css'
+import { getRestaurantById, getRestaurants } from './api_helper.ts';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <App />,
+    children: [
+      {
+        path: "map",
+        loader: () => {
+          return getRestaurants();
+        },
+      },
+      {
+        path: "restaurants",
+        loader: () => {
+          return getRestaurants();
+        },
+      },
+      {
+        path: "restaurants/:id",
+        loader: ({ params }) => {
+          return getRestaurantById(params.id)
+        },
+      },
+      {
+        path: "/about",
+      },
+    ]
+  },
+
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
