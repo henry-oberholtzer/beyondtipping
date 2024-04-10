@@ -13,6 +13,7 @@ function App() {
         to={"X"}>
           OK
         </Button>
+
         <Outlet />
       </Bounded>
     </>
