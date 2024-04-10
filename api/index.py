@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, url_for, request, abort
+from flask_cors import CORS
 from flask_admin import Admin
 from flask_admin import helpers as admin_helpers
 from flask_admin.contrib.sqla import ModelView
@@ -13,7 +14,7 @@ import os
 
 # Creates the Flask Application
 app = Flask(__name__)
-
+CORS(app)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config.from_pyfile('config.py')
