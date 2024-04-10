@@ -1,42 +1,84 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.App {
+  font-family: sans-serif;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#root {
+  height: 100vh;
+  background-color: #111827;
+  color: #fffbeb;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.leaflet-container {
+  height: 80vh;
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+  border: 5px solid #881337;
 }
 
-.card {
-  padding: 2em;
+h1 {
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.popup {
+  box-sizing: border-box;
+  color: #fffbeb;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 230px;
+  background-color: #293142;
+}
+
+.popup a {
+  color: #fffbeb;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.popup img {
+  display: block;
+  max-height: 200px;
+  max-width: 200px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+
+.popup h2 {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.addressAndFeeType {
+  text-align: center;
+}
+
+.popup h3 {
+  font-size: 16px;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  background-color: #293142;
+  border: 5px solid #881337;
 }
