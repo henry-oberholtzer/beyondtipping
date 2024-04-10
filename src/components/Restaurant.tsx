@@ -4,19 +4,17 @@ interface RestaurantProps {
   address: string;
   imageUrl: string;
   website: string;
-  whenRestaurantClicked: (id: number) => void;
 }
 
-const Restaurant: React.FC<RestaurantProps> = ({ name, address, id, website, imageUrl,whenRestaurantClicked }) => {
+const Restaurant: React.FC<RestaurantProps> = ({ name, address, id, website, imageUrl }) => {
 
   return (
     <>
-      <div onClick={() => whenRestaurantClicked(id)}>
+      <div id={`Restaurant: ${id}`}>
         <h3>{name}</h3>
         <img src={imageUrl} alt="Restaurant logo" height="100px"/>
         <p>Address: {address}</p>
         <a href={website}>Website</a>
-        {/* <p>{type_id}</p> */}
         <hr />
       </div>
     </>
