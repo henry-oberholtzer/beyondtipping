@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import { useLoaderData } from 'react-router'
-
 import { getTypes, getRestaurants } from "../api_helper";
 import Button from "./Button";
 import Heading from "./Heading";
