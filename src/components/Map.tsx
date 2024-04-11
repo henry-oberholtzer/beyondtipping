@@ -6,7 +6,8 @@ import { Icon } from "leaflet";
 
 import { getRestaurants } from "../api_helper";
 import { useState, useEffect } from "react";
-
+import Heading from "./Heading";
+import Button from "./Button";
 
 export const Map = () => {
     interface Restaurant {
@@ -157,6 +158,15 @@ export const Map = () => {
 
     return (
         <>
+          <div className="text-center mb-8 md:mb-10">
+      <Heading as="h1" size="xl" className="font-bold mt-12 w-max">
+        tip-free restaurants map
+      </Heading>
+      </div>
+      <p className="text-xl text-center font-body max-w mb-5 px-5">find restaurants in PDX that have integrated fare wages and foregone tipping!</p>
+      <div className="text-center mb-8 md:mb-10">
+      <Button to="/restaurants" buttonText="view restaurant list" className="mb-8 md:mb-10" />
+      </div>
             <MapContainer center={[45.512794, -122.679565]} zoom={13}>
                 {/* <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

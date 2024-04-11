@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import { useLoaderData } from 'react-router'
 import { getTypes } from "../api_helper";
+import Heading from "./Heading";
+import Button from "./Button";
 
 type Restaurant = {
   name: string;
@@ -34,12 +36,21 @@ const RestaurantList: React.FC = () => {
 
   return (
     <>
-      <div className="mx-auto p-4 max-w-sm">
-      <input type="text" placeholder="search..." />
+    <div className="text-center mb-8 md:mb-10">
+      <Heading as="h1" size="xl" className="font-bold mt-12 w-max">
+        tip-free restaurants list
+      </Heading>
       </div>
-    
-    <div className="flex flex-wrap justify-center mt-1">
-      {restaurants.map((restaurant, index) => (
+      <p className="text-xl text-center font-body max-w mb-5 px-5">find restaurants in PDX that have integrated fare wages and foregone tipping!</p>
+      <div className="text-center mb-8 md:mb-10">
+      <Button to="/map" buttonText="view restaurant map" className="mb-8 md:mb-10" />
+      </div>
+      <div className="mx-auto p-4 max-w-sm">
+        <input type="text" placeholder="search..." />
+      </div>
+
+      <div className="flex flex-wrap justify-center mt-1">
+        {restaurants.map((restaurant, index) => (
           <Restaurant
             key={restaurant.id}
             name={restaurant.name}
@@ -51,10 +62,10 @@ const RestaurantList: React.FC = () => {
             typeAmount={types[index]?.amount}
           />
           // </Link>
-      ))}
+        ))}
       </div>
-     
+
     </>
-      );
+  );
 }
 export default RestaurantList;
