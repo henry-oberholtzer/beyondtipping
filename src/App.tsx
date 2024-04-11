@@ -8,9 +8,9 @@ function App() {
   return (
     <>
       <Bounded>
-        <Icon/>
+        <Icon />
         <Button
-        to={"X"}>
+          to={"X"}>
           OK
         </Button>
         <Outlet />
