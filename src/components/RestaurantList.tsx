@@ -2,15 +2,6 @@ import Restaurant from "./Restaurant";
 import { Link } from "react-router-dom";
 import { useLoaderData } from 'react-router'
 
-
-type Restaurant = {
-  name: string;
-  id: number;
-  address: string;
-  website: string;
-  imageUrl: string;
-}
-
 type RestaurantItemList = Restaurant[]
 
 const RestaurantList: React.FC = () => {
