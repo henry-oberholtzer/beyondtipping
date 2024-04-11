@@ -143,7 +143,7 @@ export const Map = () => {
         2: { name: 'Service Fee', amount: '18%' },
         3: { name: 'Service Fee', amount: '20%' },
         4: { name: 'Service Fee', amount: '22%' },
-        5: { name: 'Service Fee', amount: 'other' },
+        6: { name: 'Service Fee', amount: 'other' },
     };
 
     restaurants.forEach(restaurant => {
