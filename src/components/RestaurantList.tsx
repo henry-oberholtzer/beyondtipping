@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import { useLoaderData } from 'react-router'
 import { getTypes, getRestaurants } from "../api_helper";
+import Button from "./Button";
+import Heading from "./Heading";
 
 import Button from "./Button";
 import Heading from "./Heading";
@@ -80,8 +82,6 @@ const RestaurantList: React.FC = () => {
           placeholder="search..." />
         <button>filter list</button>
       </div>
-
-
       <div className="flex flex-wrap justify-center mt-1">
         {restaurants.map((restaurant, index) => (
           <Restaurant
@@ -99,6 +99,5 @@ const RestaurantList: React.FC = () => {
       </div>
     </>
   );
-
 }
 export default RestaurantList;

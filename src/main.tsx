@@ -15,6 +15,7 @@ import Hero from './views/Hero.tsx';
 import RestaurantDetail from './components/RestaurantDetail.tsx';
 import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
+import WhyTipFree from './components/WhyTipFree.tsx';
 
 import WhyTipFree from './components/WhyTipFree.tsx';
 
@@ -35,7 +36,6 @@ const navigation: NavigationDir[] = [
   },
   {
     link: "/about_us",
-
     label: "about us"
   }
 ]
@@ -119,7 +119,6 @@ const router = createBrowserRouter([
           return bios
         }
       },
-
       {
         path: "why_tip_free",
         element: <WhyTipFree />
