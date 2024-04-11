@@ -16,6 +16,7 @@ import RestaurantDetail from './components/RestaurantDetail.tsx';
 import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
 import WhyTipFree from './components/WhyTipFree.tsx';
+import { Confirmation } from './components/Confirmation.tsx';
 
 
 const navigation: NavigationDir[] = [
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "form",
         element: <Form />
+      },
+      {
+        path: "confirmation",
+        element: <Confirmation />
       },
       {
         path: "restaurants",
