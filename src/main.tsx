@@ -4,20 +4,19 @@ import App from './App.tsx'
 import {
   createBrowserRouter,
   RouterProvider,
+  redirect,
 } from "react-router-dom";
 import './index.css'
 import RestaurantList from './components/RestaurantList.tsx';
-import { getRestaurantById, getRestaurants } from './api_helper.ts'
+import { getRestaurantById, getRestaurants } from './api_helper.ts';
 import { Map } from './components/Map.tsx';
 import ErrorPage from './components/ErrorPage.tsx';
 import Hero from './views/Hero.tsx';
+import RestaurantDetail from './components/RestaurantDetail.tsx';
+import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
 
 const navigation: NavigationDir[] = [
-  {
-    link: "/",
-    label: "home"
-  },
   {
     link: "/restaurants",
     label: "restaurant list"
@@ -33,6 +32,41 @@ const navigation: NavigationDir[] = [
   {
     link: "/aboutUs",
     label: "about us"
+  }
+]
+
+const bios: Bio[] = [
+  {
+    name: "Noah Kise",
+    blurb: "alright alright alright",
+    imageUrl: "src/assets/img/noah.jpeg",
+    contribution: "Flask Backend, React frontend",
+    buttonLink: "https://github.com/NoahKise",
+    buttonText: "check out Noah's github"
+  },
+  {
+    name: "Brianca Knight",
+    blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists. My current goal is to combine creative flair with intuitive design to create digital magic.",
+    imageUrl: "src/assets/img/brianca.jpg",
+    contribution: "UI/UX Design",
+    buttonLink: "https://github.com/BriancaKnight",
+    buttonText: "check out Brianca's github"
+  },
+  {
+    name: "Henry Oberholtzer",
+    blurb: "alright alright alright",
+    imageUrl: "src/assets/img/henry.jpeg",
+    contribution: "Flask Backend, React frontend",
+    buttonLink: "https://github.com/henry-oberholtzer",
+    buttonText: "check out Henry's github"
+  },
+  {
+    name: "Kim Robinson",
+    blurb: "alright alright alright",
+    imageUrl: "src/assets/img/kim.jpeg",
+    contribution: "Flask Backend, React frontend",
+    buttonLink: "https://github.com/kimmykokonut",
+    buttonText: "check out Kim's github"
   }
 ]
 
@@ -63,12 +97,22 @@ const router = createBrowserRouter([
       },
       {
         path: "restaurants/:id",
-        // loader: ({ params }) => {
-        //   return getRestaurantById(params.id);
-        // },
+        loader: ({ params }) => {
+          if (params.id) {
+            return getRestaurantById(parseInt(params.id));
+          } else {
+            return redirect("/restaurants")
+          }
+        },
+        element: <RestaurantDetail />,
+        errorElement: <ErrorPage />
       },
       {
-        path: "/about",
+        path: "/aboutUs",
+        element: <Bios />,
+        loader: () => {
+          return bios
+        }
       },
     ]
   },
