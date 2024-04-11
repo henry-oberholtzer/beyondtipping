@@ -17,8 +17,6 @@ import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
 import WhyTipFree from './components/WhyTipFree.tsx';
 
-import WhyTipFree from './components/WhyTipFree.tsx';
-
 
 const navigation: NavigationDir[] = [
   {
