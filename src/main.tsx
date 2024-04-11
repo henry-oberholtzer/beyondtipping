@@ -16,6 +16,9 @@ import RestaurantDetail from './components/RestaurantDetail.tsx';
 import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
 
+import WhyTipFree from './components/WhyTipFree.tsx';
+
+
 const navigation: NavigationDir[] = [
   {
     link: "/restaurants",
@@ -26,11 +29,13 @@ const navigation: NavigationDir[] = [
     label: "restaurant map"
   },
   {
-    link: "/whyTipFree",
+
+    link: "/why_tip_free",
     label: "why tip-free?"
   },
   {
-    link: "/aboutUs",
+    link: "/about_us",
+
     label: "about us"
   }
 ]
@@ -108,12 +113,20 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
       },
       {
-        path: "/aboutUs",
+
+        path: "/about_us",
+
         element: <Bios />,
         loader: () => {
           return bios
         }
       },
+
+      {
+        path: "why_tip_free",
+        element: <WhyTipFree />
+      },
+
     ]
   },
 ])
