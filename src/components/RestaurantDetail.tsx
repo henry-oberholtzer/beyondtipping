@@ -10,7 +10,6 @@ export default function RestaurantDetail() {
       address={data.address}
       imageUrl={data.imageUrl}
       website={data.website}
-      id={data.id}
-    />
+      id={data.id} typeName={""} typeAmount={""}    />
   )
 }
