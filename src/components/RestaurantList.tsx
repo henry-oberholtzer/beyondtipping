@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import { useLoaderData } from 'react-router'
-import { getTypes } from "../api_helper";
+import { getTypes, getRestaurants } from "../api_helper";
 
 type Restaurant = {
   name: string;
@@ -20,8 +20,23 @@ interface TypeData {
 type RestaurantItemList = Restaurant[]
 
 const RestaurantList: React.FC = () => {
-  const restaurants = useLoaderData() as RestaurantItemList
+  const restaurants = useLoaderData() as RestaurantItemList;
   const [types, setTypes] = useState<any[]>([]);
+  const [query, setQuery] = useState("");
+  //const [restaurants, setRestaurants] = useState(allRestaurants);
+
+  // useEffect(() => {
+  //   const fetchRestaurantsAndTypes = async () => {
+  //     const response = await fetch(`http://127.0.0.1:8000/restaurants?query=${query}`);
+  //     const filterRestaurants = await response.json();
+
+  //     const allTypes = await getTypes();
+  //     const typesMap = allTypes.reduce((map: { [key: number]: TypeData }, type: TypeData) => ({ ...map, [type.id]: type }), {});
+  //     setTypes(filterRestaurants.map((restaurant: Restaurant) => typesMap[restaurant.type_id]));
+  //     setRestaurants(filterRestaurants);
+  //   };
+  //   fetchRestaurantsAndTypes();
+  // }, [query]);
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -32,29 +47,38 @@ const RestaurantList: React.FC = () => {
     fetchTypes();
   }, [restaurants]);
 
+  // const handleSearch = () => {
+  //   setQuery(inputValue);
+  // };
+
   return (
     <>
       <div className="mx-auto p-4 max-w-sm">
-      <input type="text" placeholder="search..." />
+        <input
+          className="text-black"
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="search..." />
+        <button>filter list</button>
       </div>
-    
-    <div className="flex flex-wrap justify-center mt-1">
-      {restaurants.map((restaurant, index) => (
-          <Restaurant
-            key={restaurant.id}
-            name={restaurant.name}
-            address={restaurant.address}
-            imageUrl={restaurant.imageUrl}
-            website={restaurant.website}
-            id={restaurant.id}
-            typeName={types[index]?.name}
-            typeAmount={types[index]?.amount}
-          />
-          // </Link>
-      ))}
-      </div>
-     
-    </>
+
+        <div className="flex flex-wrap justify-center mt-1">
+          {restaurants.map((restaurant, index) => (
+            <Restaurant
+              key={restaurant.id}
+              name={restaurant.name}
+              address={restaurant.address}
+              imageUrl={restaurant.imageUrl}
+              website={restaurant.website}
+              id={restaurant.id}
+              typeName={types[index]?.name}
+              typeAmount={types[index]?.amount}
+            />
+            // </Link>
+          ))}
+        </div>
+      </>
       );
 }
 export default RestaurantList;
