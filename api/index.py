@@ -9,6 +9,7 @@ from flask_marshmallow import Marshmallow
 from sqlalchemy.exc import IntegrityError
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password, current_user
 from flask_security.models import fsqla_v3 as fsqla
+from sqlalchemy import or_
 import os
 
 # Creates the Flask Application
@@ -65,9 +66,10 @@ class Restaurant(db.Model):
   name = db.Column(db.String(50))
   address = db.Column(db.String(100))
   website = db.Column(db.String(100))
-  imageUrl = db.Column(db.String(100))
+  imageUrl = db.Column(db.String(200))
   latitude = db.Column(db.Float())
   longitude = db.Column(db.Float())
+  visible = db.Column(db.Boolean(), default=False)
   type_id = db.Column(db.Integer, db.ForeignKey('type.id'), nullable=False)
 
   def __repr__(self):
@@ -77,7 +79,7 @@ ma = Marshmallow(app)
 
 class RestaurantSchema(ma.Schema):
   class Meta:
-    fields = ("id", "name", "address", "website", "imageUrl", "latitude", "longitude", "type_id")
+    fields = ("id", "name", "address", "website", "imageUrl", "latitude", "longitude", "visible", "type_id")
     model = Restaurant
     
 class TypeSchema(ma.Schema):
@@ -127,6 +129,7 @@ def seed_rest_db():
         "imageUrl": "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
         "latitude": 45.54178453985534,
         "longitude": -122.67473068332497,
+        "visible":  True,
         "type_id": 1,
     },
     {
@@ -136,6 +139,7 @@ def seed_rest_db():
         "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
         "latitude": 45.589974368346105,
         "longitude": -122.75392355397106,
+        "visible":  True,
         "type_id": 1,
     },
     {
@@ -145,6 +149,7 @@ def seed_rest_db():
         "imageUrl": "https://mirisata.com/cdn/shop/files/Mirisata_Header_300x300.png?v=1613789790",
         "latitude": 45.51691301771276,
         "longitude": -122.640913069314,
+        "visible":  True,
         "type_id": 1,
     },
     {
@@ -154,6 +159,7 @@ def seed_rest_db():
         "imageUrl": "https://images.squarespace-cdn.com/content/v1/6425fda37cd955140101b1b9/ada3a486-8c67-486c-bb5f-cabc02282403/Kachka_0342.jpg",
         "latitude": 45.51637079485203,
         "longitude": -122.65459971534298,
+        "visible":  True,
         "type_id": 4,
     },
     {
@@ -163,6 +169,7 @@ def seed_rest_db():
         "imageUrl": "https://static.wixstatic.com/media/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png/v1/fill/w_2500,h_1818,al_c/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png",
         "latitude": 45.52829802597582,
         "longitude": -122.69451466931405,
+        "visible":  True,
         "type_id": 3,
     },
     {
@@ -172,6 +179,7 @@ def seed_rest_db():
         "imageUrl": "https://static.wixstatic.com/media/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png/v1/fill/w_2500,h_1818,al_c/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png",
         "latitude": 45.50519758833178,
         "longitude": -122.64288511642539,
+        "visible":  True,
         "type_id": 3,
     },
     {
@@ -181,6 +189,7 @@ def seed_rest_db():
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSfbkTXPh6hXT4XVMGQF1UjE5MBukuiZJN-o8QCXZBw&s",
         "latitude": 45.56198197080319,
         "longitude": -122.6619204,
+        "visible":  True,
         "type_id": 1,
     },
     {
@@ -190,6 +199,7 @@ def seed_rest_db():
         "imageUrl": "https://images.squarespace-cdn.com/content/v1/6553de6b1f32c47e5b7fbc02/34029aa4-2087-4c3b-880c-71a2a32ebaf9/IMG_7877.JPG",
         "latitude": 45.517281442933665,
         "longitude": -122.65144143068598,
+        "visible":  True,
         "type_id": 1,
     },
     {
@@ -199,6 +209,7 @@ def seed_rest_db():
         "imageUrl": "https://gigiscafepdx.com/wp-content/uploads/2019/03/block-img-landscape1.jpg",
         "latitude": 45.478770425239595,
         "longitude": -122.69428179259911,
+        "visible":  True,
         "type_id": 1,
     },
     {
@@ -208,6 +219,7 @@ def seed_rest_db():
         "imageUrl": "https://elgaucho.com/wp-content/uploads/el-gaucho-portland.jpg",
         "latitude": 45.522208697575685,
         "longitude": -122.678663284657,
+        "visible":  True,
         "type_id": 3,
     },
     {
@@ -217,6 +229,7 @@ def seed_rest_db():
         "imageUrl": "https://s3.amazonaws.com/arc-wordpress-client-uploads/wweek/wp-content/uploads/2017/10/30141957/RG17_AvaGenes_HenryCromett02.jpg",
         "latitude": 45.50539680925617,
         "longitude": -122.62954903862807,
+        "visible":  True,
         "type_id": 3,
     },
      {
@@ -226,6 +239,7 @@ def seed_rest_db():
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9fwubBUSuwdnyRTkX5yYZcndkdnZos-yVjc9dluG6ZA&s",
         "latitude": 45.5516389366529,
         "longitude": -122.66165400794208,
+        "visible":  True,
         "type_id": 3,
     },
   ]
@@ -251,11 +265,12 @@ class RestaurantListResource(Resource):
   def get(self):
     print("get method called")
     try:
-      name = request.args.get('name')
-      print(f"query param name: {name}")
+      query = request.args.get('query')
+      print(f"query param name: {query}")
 
-      if name:
-        restaurants = Restaurant.query.filter(Restaurant.name.ilike(f"%{name}%")).all()
+      if query:
+        restaurants = Restaurant.query.filter(or_(Restaurant.name.ilike(f"%{query}%")),
+        (Restaurant.address.ilike(f"%{query}%"))).all()
       else:
         restaurants = Restaurant.query.all()
       
@@ -264,7 +279,7 @@ class RestaurantListResource(Resource):
       app.logger.error(f"An error: {str(e)}")
       return {"message": "Error occurred"}, 500
 
-  @auth_required('token', 'session')
+  # @auth_required('token', 'session')
   def post(self):
     try:
       new_restaurant = Restaurant(
