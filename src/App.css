@@ -23,11 +23,14 @@
   border: 5px solid #881337;
 }
 
-h1 {
-  font-size: 50px;
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 10px;
+@font-face {
+  font-family: 'rounded';
+  src: url(./assets/fonts/MPLUSRounded1c-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'mulish';
+  src: url(./assets/fonts/Mulish-VariableFont_wght.ttf);
 }
 
 .links {
@@ -45,6 +48,7 @@ h1 {
   padding-bottom: 10px;
   max-width: 230px;
   background-color: #293142;
+  font-family: 'mulish';
 }
 
 .popup a {
@@ -67,6 +71,8 @@ h1 {
   text-align: center;
   margin-bottom: 5px;
   font-size: 24px;
+  font-weight: bold;
+  font-family: 'rounded';
 }
 
 .addressAndFeeType {
@@ -78,7 +84,7 @@ h1 {
 }
 
 .leaflet-popup-content-wrapper {
-  padding: 0;
+  /* padding: 0; */
   background-color: #293142;
   border: 5px solid #881337;
 }
