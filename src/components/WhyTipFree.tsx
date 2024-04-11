@@ -19,7 +19,7 @@ export default function WhyTipFree() {
       inclusive and sustainable work environment. By eliminating the reliance
       on tips, these establishments prioritize fair compensation, promote
       economic stability, and contribute to a more just and dignified
-      restaurant industry for workers and patrons alike.
+      restaurant industry for workers and patrons alike. Just like having your cake, and eating it too. 
     </p>
     <div className="flex justify-center">
       <div className="grid grid-cols-2 gap-4">

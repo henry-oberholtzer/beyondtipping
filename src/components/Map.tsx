@@ -8,6 +8,7 @@ import { getRestaurants } from "../api_helper";
 import { useState, useEffect } from "react";
 import Heading from "./Heading";
 import Button from "./Button"
+import CallToAction from "./CallToAction";
 
 import Heading from "./Heading";
 import Button from "./Button"
@@ -211,6 +212,7 @@ export const Map = () => {
                     ))}
                 </MarkerClusterGroup>
             </MapContainer>
+            <CallToAction/>
         </>
     );
 }
