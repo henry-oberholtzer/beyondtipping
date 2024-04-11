@@ -5,6 +5,10 @@ import { getTypes, getRestaurants } from "../api_helper";
 import Button from "./Button";
 import Heading from "./Heading";
 
+import Button from "./Button";
+import Heading from "./Heading";
+
+
 type Restaurant = {
   name: string;
   id: number;
@@ -55,6 +59,7 @@ const RestaurantList: React.FC = () => {
 
   return (
     <>
+
       <div className="text-center mb-4 md:mb-6">
         <Heading
           as="h1"
@@ -67,6 +72,7 @@ const RestaurantList: React.FC = () => {
       <div className="text-center mb-8 md:mb-10">
         <Button to="/map" buttonText="view restaurant map" className="mb-8 md:mb-10" />
       </div>
+
       <div className="mx-auto p-4 max-w-sm">
         <input
           className="text-black"
@@ -76,7 +82,6 @@ const RestaurantList: React.FC = () => {
           placeholder="search..." />
         <button>filter list</button>
       </div>
-
       <div className="flex flex-wrap justify-center mt-1">
         {restaurants.map((restaurant, index) => (
           <Restaurant

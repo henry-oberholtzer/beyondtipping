@@ -9,6 +9,10 @@ import { useState, useEffect } from "react";
 import Heading from "./Heading";
 import Button from "./Button"
 
+import Heading from "./Heading";
+import Button from "./Button"
+
+
 
 export const Map = () => {
     interface Restaurant {
