@@ -11,7 +11,7 @@ export default function Heading ({
   as: Comp = "h1",
   className, 
   children, 
-  size = "lg"
+  size = "lg",
 }: HeadingProps) {
 
 
