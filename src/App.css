@@ -51,8 +51,14 @@
   font-family: 'mulish';
 }
 
-.popup a {
-  color: #fffbeb;
+.popup a:link {
+  color: #90dbeb;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.popup a:visited {
+  color: #90dbeb;
   font-size: 16px;
   font-weight: bold;
 }
@@ -91,4 +97,10 @@
 
 body {
   background-color: #111827;
+}
+
+#restaurantName,
+#restaurantAddress,
+#restaurantType {
+  color: black;
 }

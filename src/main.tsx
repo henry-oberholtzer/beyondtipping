@@ -11,6 +11,7 @@ import { getRestaurantById, getRestaurants } from './api_helper.ts'
 import { Map } from './components/Map.tsx';
 import ErrorPage from './components/ErrorPage.tsx';
 import Hero from './views/Hero.tsx';
+import { Form } from './components/Form.tsx';
 
 const navigation: NavigationDir[] = [
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "map",
         element: <Map />,
+      },
+      {
+        path: "form",
+        element: <Form />
       },
       {
         path: "restaurants",
