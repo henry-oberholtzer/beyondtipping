@@ -8,7 +8,7 @@ export default {
     extend: {
       fontFamily: {
         body: ["Mulish", "sans-serif"],
-        display: ["M Plus Rounded 1c", "sans-serif"],
+        display: ["'M Plus Rounded 1c'", "sans-serif"],
       },
       textColor: { 'white': '#fffbeb', },
       },
