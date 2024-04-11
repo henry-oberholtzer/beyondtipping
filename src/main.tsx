@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import RestaurantList from './components/RestaurantList.tsx';
-import { getRestaurantById, getRestaurants } from './api_helper.ts';
+import { getRestaurants } from './api_helper.ts';
 import { Map } from './components/Map.tsx';
 import ErrorPage from './components/ErrorPage.tsx';
 import Hero from './views/Hero.tsx';
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
         path: "restaurants/:id",
         loader: ({ params }) => {
           if (params.id) {
-            return getRestaurantById(parseInt(params.id));
+            return getRestaurants(parseInt(params.id));
           } else {
             return redirect("/restaurants")
           }
@@ -113,9 +113,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
       },
       {
-
         path: "/about_us",
-
         element: <Bios />,
         loader: () => {
           return bios
