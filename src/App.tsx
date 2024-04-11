@@ -3,7 +3,6 @@ import Button from './components/Button'
 import './App.css'
 import { Outlet } from 'react-router-dom'
 import Bounded from './components/Bounded'
-// import RestaurantList from './components/RestaurantList'
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
         to={"X"}>
           OK
         </Button>
-
         <Outlet />
       </Bounded>
     </>
