@@ -1,5 +1,6 @@
 import { createRestaurant } from "../api_helper";
 import { FormEvent } from 'react';
+import Heading from "./Heading";
 
 export const Form = () => {
 
@@ -62,6 +63,7 @@ export const Form = () => {
 
     return (
         <>
+         <div className="max-w-4xl m-auto shadow-xl md:px-12 px-4 py-12 grid place-items-center rounded-lg bg-gradient-to-br from-rose-800 via-slate to-gray-500">
             <form id="newRestaurantForm" onSubmit={handleSubmit}>
                 <div id="formInputs">
                     <h1>add new restaurant</h1>
@@ -80,6 +82,7 @@ export const Form = () => {
                     <button type="submit" id="restaurantSubmit">Submit</button>
                 </div>
             </form>
+            </div>
         </>
     );
 };

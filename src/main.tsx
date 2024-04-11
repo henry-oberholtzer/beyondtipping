@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import RestaurantList from './components/RestaurantList.tsx';
-import { getRestaurantById, getRestaurants } from './api_helper.ts';
+import { getRestaurants } from './api_helper.ts';
 import { Map } from './components/Map.tsx';
 import ErrorPage from './components/ErrorPage.tsx';
 import Hero from './views/Hero.tsx';
@@ -16,6 +16,7 @@ import RestaurantDetail from './components/RestaurantDetail.tsx';
 import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
 import WhyTipFree from './components/WhyTipFree.tsx';
+
 
 const navigation: NavigationDir[] = [
   {
@@ -27,6 +28,7 @@ const navigation: NavigationDir[] = [
     label: "restaurant map"
   },
   {
+
     link: "/why_tip_free",
     label: "why tip-free?"
   },
@@ -57,15 +59,15 @@ const bios: Bio[] = [
     name: "Henry Oberholtzer",
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/henry.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "Flask Backend, React frontend, SQLite Database",
     buttonLink: "https://github.com/henry-oberholtzer",
     buttonText: "check out Henry's github"
   },
   {
     name: "Kim Robinson",
-    blurb: "alright alright alright",
+    blurb: "Amateur mycologist, full-stack software engineer in the Pacific Northwest",
     imageUrl: "src/assets/img/kim.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "Flask Backend, React frontend, SQLite Database",
     buttonLink: "https://github.com/kimmykokonut",
     buttonText: "check out Kim's github"
   }
@@ -100,7 +102,7 @@ const router = createBrowserRouter([
         path: "restaurants/:id",
         loader: ({ params }) => {
           if (params.id) {
-            return getRestaurantById(parseInt(params.id));
+            return getRestaurants(parseInt(params.id));
           } else {
             return redirect("/restaurants")
           }
@@ -119,6 +121,7 @@ const router = createBrowserRouter([
         path: "why_tip_free",
         element: <WhyTipFree />
       },
+
     ]
   },
 ])
