@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 interface RestaurantProps {
   id: number;
   name: string;
@@ -18,9 +20,9 @@ const Restaurant: React.FC<RestaurantProps> = ({ name, address, website, imageUr
         <h3>{name}</h3></a>
         <p>{address}</p>
         <br />
+        
         <p>{typeName} {isNaN(parseFloat(typeAmount)) ? typeAmount : `${Math.round(parseFloat(typeAmount) * 100)}%`}</p>
-        <br />
-        <p><a href={`https://www.google.com/maps/dir/?api=1&destination=${address}`} target="_blank" rel="noopener noreferrer">let's go!</a></p>
+        <Button to={`https://www.google.com/maps/dir/?api=1&destination=${address}`} className="mt-4" buttonText="directions" />
       </div>
     </div>
   );
