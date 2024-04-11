@@ -21,3 +21,16 @@ interface Bio {
 	blurb: string;
 	imageUrl: string;
 }
+
+interface Type {
+  name: string;
+  amount: string;
+}
+
+interface HttpRequest {
+  method: string;
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body?: string;
+}
