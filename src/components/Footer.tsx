@@ -8,7 +8,8 @@ export default function Footer(props: HeaderFooterProps) {
     
   <Bounded as="footer">
     <div className="flex sm:flex-row flex-col justify-between items-center gap-6 py-9">
-    <Link to="/"><Icon/></Link>
+    <Link to="/"><Icon
+    size="sm" /></Link>
 
 <p className="text-xs">©{new Date().getFullYear()} beyondtipping</p>
 
