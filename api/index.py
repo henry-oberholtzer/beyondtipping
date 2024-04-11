@@ -264,7 +264,7 @@ class RestaurantListResource(Resource):
       app.logger.error(f"An error: {str(e)}")
       return {"message": "Error occurred"}, 500
 
-  @auth_required('token', 'session')
+  # @auth_required('token', 'session')
   def post(self):
     try:
       new_restaurant = Restaurant(
