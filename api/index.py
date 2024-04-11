@@ -6,7 +6,6 @@ from flask_admin.contrib.sqla import ModelView
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow 
-# from marshmallow import Schema, fields, ValidationError
 from sqlalchemy.exc import IntegrityError
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password, current_user
 from flask_security.models import fsqla_v3 as fsqla
@@ -118,6 +117,130 @@ def seed_db():
       new_type = Type(name=type_data["name"], amount=type_data["amount"])
       db.session.add(new_type)
     db.session.commit()
+
+def seed_rest_db():
+  restaurants = [
+     {
+        "name": "Bernstein's Bagels",
+        "address": "816 N Russell St, Portland, OR 97227",
+        "website": "https://bernsteinsbagels.com/",
+        "imageUrl": "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
+        "latitude": 45.54178453985534,
+        "longitude": -122.67473068332497,
+        "type_id": 1,
+    },
+    {
+        "name": "Gracie's Apizza",
+        "address": "7304 N Leavitt Ave, Portland, OR 97203",
+        "website": "https://www.graciesapizza.com/",
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
+        "latitude": 45.589974368346105,
+        "longitude": -122.75392355397106,
+        "type_id": 1,
+    },
+    {
+        "name": "Mirisata",
+        "address": "2420 SE Belmont St, Portland, OR 97214",
+        "website": "https://mirisata.com/",
+        "imageUrl": "https://mirisata.com/cdn/shop/files/Mirisata_Header_300x300.png?v=1613789790",
+        "latitude": 45.51691301771276,
+        "longitude": -122.640913069314,
+        "type_id": 1,
+    },
+    {
+        "name": "Kachka",
+        "address": "960 SE 11th Ave, Portland, OR 97214",
+        "website": "https://www.kachkapdx.com/menus",
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/6425fda37cd955140101b1b9/ada3a486-8c67-486c-bb5f-cabc02282403/Kachka_0342.jpg",
+        "latitude": 45.51637079485203,
+        "longitude": -122.65459971534298,
+        "type_id": 4,
+    },
+    {
+        "name": "Scottie's Pizza Parlor NW",
+        "address": "685 NW 21st Ave, Portland, OR 97209",
+        "website": "https://www.scottiespizzaparlor.com/",
+        "imageUrl": "https://static.wixstatic.com/media/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png/v1/fill/w_2500,h_1818,al_c/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png",
+        "latitude": 45.52829802597582,
+        "longitude": -122.69451466931405,
+        "type_id": 3,
+    },
+    {
+        "name": "Scottie's Pizza Parlor SE",
+        "address": "2128 SE Division St, Portland, OR 97202",
+        "website": "https://www.scottiespizzaparlor.com/",
+        "imageUrl": "https://static.wixstatic.com/media/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png/v1/fill/w_2500,h_1818,al_c/e4f34f_a76b3cc99f7745d59f07304c15575626~mv2.png",
+        "latitude": 45.50519758833178,
+        "longitude": -122.64288511642539,
+        "type_id": 3,
+    },
+    {
+        "name": "Masala Lab PDX",
+        "address": "5237 NE Martin Luther King Jr Blvd, Portland, OR 97211",
+        "website": "https://masalalabpdx.com/",
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSfbkTXPh6hXT4XVMGQF1UjE5MBukuiZJN-o8QCXZBw&s",
+        "latitude": 45.56198197080319,
+        "longitude": -122.6619204,
+        "type_id": 1,
+    },
+    {
+        "name": "Astera",
+        "address": "1407 SE Belmont St, Portland, OR 97214",
+        "website": "https://www.asterapdx.com/",
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/6553de6b1f32c47e5b7fbc02/34029aa4-2087-4c3b-880c-71a2a32ebaf9/IMG_7877.JPG",
+        "latitude": 45.517281442933665,
+        "longitude": -122.65144143068598,
+        "type_id": 1,
+    },
+    {
+        "name": "Gigi's Cafe",
+        "address": "6320 SW Capitol Hwy, Portland, OR 97239",
+        "website": "https://gigiscafepdx.com/",
+        "imageUrl": "https://gigiscafepdx.com/wp-content/uploads/2019/03/block-img-landscape1.jpg",
+        "latitude": 45.478770425239595,
+        "longitude": -122.69428179259911,
+        "type_id": 1,
+    },
+    {
+        "name": "El Gaucho",
+        "address": "319 SW Broadway, Portland, OR 97205",
+        "website": "https://elgaucho.com/portland/",
+        "imageUrl": "https://elgaucho.com/wp-content/uploads/el-gaucho-portland.jpg",
+        "latitude": 45.522208697575685,
+        "longitude": -122.678663284657,
+        "type_id": 3,
+    },
+    {
+        "name": "Ava Gene's",
+        "address": "3377 SE Division St, Portland, OR 972025",
+        "website": "https://www.avagenes.com/",
+        "imageUrl": "https://s3.amazonaws.com/arc-wordpress-client-uploads/wweek/wp-content/uploads/2017/10/30141957/RG17_AvaGenes_HenryCromett02.jpg",
+        "latitude": 45.50539680925617,
+        "longitude": -122.62954903862807,
+        "type_id": 3,
+    },
+     {
+        "name": "Cafe Olli",
+        "address": "3925 NE Martin Luther King Jr Blvd, Portland, OR 97212",
+        "website": "https://cafeolli.com/",
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9fwubBUSuwdnyRTkX5yYZcndkdnZos-yVjc9dluG6ZA&s",
+        "latitude": 45.5516389366529,
+        "longitude": -122.66165400794208,
+        "type_id": 3,
+    },
+  ]
+  for data in restaurants:
+    new_restaurant = Restaurant(
+      name=data["name"],
+      address=data["address"],
+      website=data["website"],
+      imageUrl=data["imageUrl"],
+      latitude=data["latitude"],
+      longitude=data["longitude"],
+      type_id=data["type_id"],
+    )
+    db.session.add(new_restaurant)
+  db.session.commit()
 
 with app.app_context():
   db.create_all()
