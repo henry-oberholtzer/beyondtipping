@@ -11,6 +11,20 @@ import { getRestaurantById, getRestaurants } from './api_helper.ts'
 import { Map } from './components/Map.tsx';
 import ErrorPage from './components/ErrorPage.tsx';
 
+const navigation: NavigationDir[] = [
+  {
+    link: "/",
+    label: "home"
+  },
+  {
+    link: "/restaurants",
+    label: "restaurants"
+  },
+  {
+    link: "/about",
+    label: "about"
+  }
+]
 
 const router = createBrowserRouter([
   {
@@ -40,7 +54,6 @@ const router = createBrowserRouter([
       },
     ]
   },
-
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -48,3 +61,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+
+export { navigation }
