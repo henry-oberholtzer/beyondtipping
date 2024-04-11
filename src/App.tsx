@@ -14,7 +14,7 @@ function App() {
         to={"X"}>
           OK
         </Button>
-<!--         <RestaurantList /> -->
+
         <Outlet />
       </Bounded>
     </>

@@ -25,15 +25,15 @@ const router = createBrowserRouter([
       {
         path: "restaurants",
         element: <RestaurantList />,
-        // loader: () => {
-        //   return getRestaurants();
-        // },
+        loader: () => {
+          return getRestaurants();
+        },
       },
       {
         path: "restaurants/:id",
-        loader: ({ params }) => {
-          return getRestaurants();
-        },
+        // loader: ({ params }) => {
+        //   return getRestaurantById(params.id);
+        // },
       },
       {
         path: "/about",
