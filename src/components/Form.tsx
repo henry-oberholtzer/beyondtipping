@@ -51,7 +51,8 @@ export const Form = () => {
                 imageUrl: imageUrl,
                 type_id: parseInt(type_id),
                 latitude: lat,
-                longitude: lon
+                longitude: lon,
+                visible: false
             };
             createRestaurant(restaurantData);
         } else {
