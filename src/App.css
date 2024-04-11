@@ -99,8 +99,35 @@ body {
   background-color: #111827;
 }
 
-#restaurantName,
-#restaurantAddress,
-#restaurantType {
+.input {
   color: black;
+  width: 280px;
+  margin-top: 10px;
+  background-color: #fffbeb;
+}
+
+#formInputs {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'rounded';
+}
+
+#formInputs p {
+  margin-top: 5px;
+  margin-bottom: -10px;
+  text-align: center;
+}
+
+#formInputs h1 {
+  text-align: center;
+  font-size: 28px;
+}
+
+#formInputs button {
+  margin-top: 15px;
+  background-color: #fffbeb;
+  color: #111827;
 }
