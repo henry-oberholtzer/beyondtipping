@@ -38,9 +38,9 @@ const navigation: NavigationDir[] = [
 const bios: Bio[] = [
   {
     name: "Noah Kise",
-    blurb: "alright alright alright",
+    blurb: "Former bartender, current junior web developer living in Portland, Oregon. Most likely listening to loud guitar music.",
     imageUrl: "src/assets/img/noah.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "Leaflet map, geocoding API implementation",
     buttonLink: "https://github.com/NoahKise",
     buttonText: "check out Noah's github"
   },
