@@ -9,11 +9,11 @@ export default function WhyTipFree() {
     <Heading
       as="h1"
       size="xl"
-      className="text-center mt-10 mb-10 font-bold"
+      className="text-center mt-28 mb-10 font-bold"
     >
       Why support tip-free businesses?
     </Heading>
-    <p className="text-xl text-center font-body mb-10 px-5">
+    <p className="text-xl text-center font-body mb-24 px-5">
       Good question. Supporting tip-free restaurants that integrate fair wages
       ensures equitable compensation for all staff, fostering a more
       inclusive and sustainable work environment. By eliminating the reliance
