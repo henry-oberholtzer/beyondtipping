@@ -18,11 +18,19 @@ const navigation: NavigationDir[] = [
   },
   {
     link: "/restaurants",
-    label: "restaurants"
+    label: "restaurant list"
   },
   {
-    link: "/about",
-    label: "about"
+    link: "/map",
+    label: "restaurant map"
+  },
+  {
+    link: "/whyTipFree",
+    label: "why tip-free?"
+  },
+  {
+    link: "/aboutUs",
+    label: "about us"
   }
 ]
 
