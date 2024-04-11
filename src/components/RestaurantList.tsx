@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import { useLoaderData } from 'react-router'
-import { getTypes } from "../api_helper";
+
+import { getTypes, getRestaurants } from "../api_helper";
+import Button from "./Button";
+import Heading from "./Heading";
+import CallToAction from "./CallToAction";
 
 type Restaurant = {
   name: string;
@@ -42,6 +46,19 @@ const RestaurantList: React.FC = () => {
 
   return (
     <>
+      <div className="text-center mb-4 md:mb-6">
+        <Heading
+          as="h1"
+          size="xl"
+          className="text-center mt-10 font-bold"
+          children={<h1>tip-free restaurant list</h1>}
+        />
+      </div>
+      <p className="text-xl text-center font-body max-w mb-10 px-5">find restaurants in PDX that have integrated fare wages and foregone tipping!</p>
+      <div className="text-center mb-8 md:mb-10">
+        <Button to="/map" buttonText="view restaurant map" className="mb-8 md:mb-10" />
+      </div>
+      
       <div className="grid w-full h-10 bg-gray-900 rounded-lg place-items-center">
         <div className="w-72">
           <div className="relative w-full min-w-[200px]">
@@ -69,6 +86,8 @@ const RestaurantList: React.FC = () => {
           />
         ))}
       </div>
+      <CallToAction/>
+
     </>
   );
 }
