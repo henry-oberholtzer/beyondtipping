@@ -39,25 +39,33 @@ const bios: Bio[] = [
     name: "Noah Kise",
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/noah.jpeg",
-    contribution: "Flask Backend, React frontend"
+    contribution: "Flask Backend, React frontend",
+    buttonLink:"https://github.com/NoahKise",
+    buttonText: "check out Noah's github"
   },
   {
     name: "Brianca Knight",
     blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists. My current goal is to combine creative flair with intuitive design to create digital magic.",
     imageUrl: "src/assets/img/brianca.jpg",
-    contribution: "UI/UX Design"
+    contribution: "UI/UX Design",
+    buttonLink:"https://github.com/BriancaKnight",
+    buttonText: "check out Brianca's github"
   },
   {
     name: "Henry Oberholtzer",
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/henry.jpeg",
-    contribution: "Flask Backend, React frontend"
+    contribution: "Flask Backend, React frontend",
+    buttonLink:"https://github.com/henry-oberholtzer",
+    buttonText: "check out Henry's github"
   },
   {
     name: "Kim Robinson",
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/kim.jpeg",
-    contribution: "Flask Backend, React frontend"
+    contribution: "Flask Backend, React frontend",
+    buttonLink:"https://github.com/kimmykokonut",
+    buttonText: "check out Kim's github"
   }
 ]
 
