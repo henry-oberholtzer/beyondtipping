@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import Icon from "./Icon";
 import Bounded from "./Bounded";
 
-export default function Header(props: HeaderProps) {
+export default function Header(props: HeaderFooterProps) {
 
   return (
   <Bounded as="header" className="py-4 md:py-6 lg:py-8 ">
@@ -26,6 +26,4 @@ export default function Header(props: HeaderProps) {
   )
 }
 
-interface HeaderProps {
-  navigation: []
-}
+
