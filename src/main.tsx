@@ -17,10 +17,6 @@ import Bios from './views/Bio.tsx';
 
 const navigation: NavigationDir[] = [
   {
-    link: "/",
-    label: "home"
-  },
-  {
     link: "/restaurants",
     label: "restaurant list"
   },
