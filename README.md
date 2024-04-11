@@ -94,6 +94,8 @@ An application that lists restaurants that have removed the tipping model, optin
 6. Run api server: http://127.0.0.1:8000/
 `$ python index.py`
 
+- NOTE: If your api server is not running on `http://127.0.0.1:8000/`, run the command `$ python -m flask --app api/index run -p 8000` in your terminal.
+
 ### Database
 
 - SQLite is used as the database engine to store the Restaurant and Type data. SQLite is a widely used relational database management system (RDBMS) that doesn’t need a SQL server to work.  It is bundled into Flask and the file is located at beyondtipping/api/instance/test.db (though you don't need to access the file)
