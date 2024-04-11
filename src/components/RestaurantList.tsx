@@ -17,10 +17,14 @@ const RestaurantList: React.FC = () => {
   const restaurants = useLoaderData() as RestaurantItemList
 
   return (
-    <div>
-      <hr />
+    <>
+      <div className="mx-auto p-4 max-w-sm">
+      <input type="text" placeholder="search..." />
+      </div>
+    
+    <div className="flex flex-wrap justify-center mt-1">
       {restaurants.map((restaurant) => (
-        <Link to={`restaurants/${restaurant.id}`} key={restaurant.id}>
+        // <Link to={`restaurants/${restaurant.id}`} key={restaurant.id}>
           <Restaurant
             key={restaurant.id}
             name={restaurant.name}
@@ -29,10 +33,11 @@ const RestaurantList: React.FC = () => {
             website={restaurant.website}
             id={restaurant.id}
           />
-          </Link>
+          // </Link>
       ))}
-          <hr />
       </div>
+     
+    </>
       );
 }
 export default RestaurantList;
