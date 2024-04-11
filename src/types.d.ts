@@ -20,4 +20,6 @@ interface Bio {
 	contribution: string;
 	blurb: string;
 	imageUrl: string;
+  buttonLink: string;
+  buttonText: string;
 }

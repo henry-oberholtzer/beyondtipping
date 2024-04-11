@@ -1,6 +1,7 @@
 import Bounded from '../components/Bounded';
 import Heading from '../components/Heading';
 import { useLoaderData } from 'react-router-dom';
+import Button from '../components/Button';
 
 // const components = {
 // 	heading2: (text: string) => (
@@ -49,8 +50,8 @@ const Bios = () => {
 							className="border bg-gradient-to-br from-amber-50 to-gray-50 shadow-lg rounded-lg px-8 md:px-14 py-6 md:py-10 grid content-between">
 							<div className="flex items-center">
 								<img
-									width={56}
-									height={56}
+									width={80}
+									height={80}
 									src={item.imageUrl}
 									className="rounded-full mr-4"
 								/>
@@ -68,6 +69,7 @@ const Bios = () => {
 							<p className="text-sm md:text-lg mt-3 font-normal font-body text-slate-600 mb-8">
 								{item.blurb}
 							</p>
+							<Button to={item.buttonLink} buttonText={item.buttonText} className="mb-8 md:mb-10" />
 						</div>
 					)
 			)}
