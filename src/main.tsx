@@ -14,6 +14,7 @@ import ErrorPage from './components/ErrorPage.tsx';
 import Hero from './views/Hero.tsx';
 import RestaurantDetail from './components/RestaurantDetail.tsx';
 import Bios from './views/Bio.tsx';
+import { Form } from './components/Form.tsx';
 
 const navigation: NavigationDir[] = [
   {
@@ -40,7 +41,7 @@ const bios: Bio[] = [
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/noah.jpeg",
     contribution: "Flask Backend, React frontend",
-    buttonLink:"https://github.com/NoahKise",
+    buttonLink: "https://github.com/NoahKise",
     buttonText: "check out Noah's github"
   },
   {
@@ -48,7 +49,7 @@ const bios: Bio[] = [
     blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists. My current goal is to combine creative flair with intuitive design to create digital magic.",
     imageUrl: "src/assets/img/brianca.jpg",
     contribution: "UI/UX Design",
-    buttonLink:"https://github.com/BriancaKnight",
+    buttonLink: "https://github.com/BriancaKnight",
     buttonText: "check out Brianca's github"
   },
   {
@@ -56,7 +57,7 @@ const bios: Bio[] = [
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/henry.jpeg",
     contribution: "Flask Backend, React frontend",
-    buttonLink:"https://github.com/henry-oberholtzer",
+    buttonLink: "https://github.com/henry-oberholtzer",
     buttonText: "check out Henry's github"
   },
   {
@@ -64,7 +65,7 @@ const bios: Bio[] = [
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/kim.jpeg",
     contribution: "Flask Backend, React frontend",
-    buttonLink:"https://github.com/kimmykokonut",
+    buttonLink: "https://github.com/kimmykokonut",
     buttonText: "check out Kim's github"
   }
 ]
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
         element: <Map />,
       },
       {
+        path: "form",
+        element: <Form />
+      },
+      {
         path: "restaurants",
         element: <RestaurantList />,
         loader: () => {
@@ -100,7 +105,7 @@ const router = createBrowserRouter([
           }
         },
         element: <RestaurantDetail />,
-        errorElement: <ErrorPage/>
+        errorElement: <ErrorPage />
       },
       {
         path: "/aboutUs",
