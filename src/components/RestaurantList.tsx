@@ -10,6 +10,7 @@ type Restaurant = {
   website: string;
   imageUrl: string;
   type_id: number;
+  visible: boolean;
 }
 interface TypeData {
   id: number;
@@ -21,6 +22,7 @@ type RestaurantItemList = Restaurant[]
 
 const RestaurantList: React.FC = () => {
   const restaurants = useLoaderData() as RestaurantItemList;
+  const visibleRestaurants = restaurants.filter(restaurant => restaurant.visible);
   const [types, setTypes] = useState<any[]>([]);
   const [query, setQuery] = useState("");
   //const [restaurants, setRestaurants] = useState(allRestaurants);
@@ -64,7 +66,7 @@ const RestaurantList: React.FC = () => {
       </div>
 
         <div className="flex flex-wrap justify-center mt-1">
-          {restaurants.map((restaurant, index) => (
+          {visibleRestaurants.map((restaurant, index) => (
             <Restaurant
               key={restaurant.id}
               name={restaurant.name}
