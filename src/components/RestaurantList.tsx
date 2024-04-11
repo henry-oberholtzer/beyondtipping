@@ -4,6 +4,7 @@ import { useLoaderData } from 'react-router'
 import { getTypes, getRestaurants } from "../api_helper";
 import Button from "./Button";
 import Heading from "./Heading";
+import CallToAction from "./CallToAction";
 
 import Button from "./Button";
 import Heading from "./Heading";
@@ -97,6 +98,7 @@ const RestaurantList: React.FC = () => {
           // </Link>
         ))}
       </div>
+      <CallToAction/>
     </>
   );
 }
