@@ -56,13 +56,11 @@ export async function getRestaurantById(id: number) {
 }
 //currently only admin can POST /restaurants
 export async function createRestaurant(restaurant: Restaurant) {
-  // do we need a token? auth?
   try {
     const response = await fetch('http://127.0.0.1:8000/restaurants', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Token ${token}`
       },
       body: JSON.stringify(restaurant),
     });
@@ -77,14 +75,12 @@ export async function createRestaurant(restaurant: Restaurant) {
     throw error;
   }
 }
-// all users can access
 export async function editRestaurant(id: number, updated_restaurant: object) {
   try {
     const response = await fetch(`http://127.0.0.1:8000/restaurants/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Token ${token}`
       },
       body: JSON.stringify(updated_restaurant),
     });
@@ -106,7 +102,6 @@ export async function deleteRestaurant(id: number) {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Token ${token}`
       },
     });
     if (response.ok) {
@@ -163,13 +158,11 @@ export async function getTypeById(id: number) {
 }
 // all users can access
 export async function createType(new_type: Type) {
-  // do we need a token? auth?
   try {
     const response = await fetch('http://127.0.0.1:8000/types', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Token ${token}`
       },
       body: JSON.stringify(new_type),
     });
@@ -191,7 +184,6 @@ export async function editType(id: number, updated_type: object) {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Token ${token}`
       },
       body: JSON.stringify(updated_type),
     });
@@ -213,7 +205,6 @@ export async function deleteType(id: number) {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Token ${token}`
       },
     });
     if (response.ok) {
