@@ -61,15 +61,15 @@ const bios: Bio[] = [
     name: "Henry Oberholtzer",
     blurb: "alright alright alright",
     imageUrl: "src/assets/img/henry.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "Flask Backend, React frontend, SQLite Database",
     buttonLink: "https://github.com/henry-oberholtzer",
     buttonText: "check out Henry's github"
   },
   {
     name: "Kim Robinson",
-    blurb: "alright alright alright",
+    blurb: "Amateur mycologist, full-stack software engineer in the Pacific Northwest",
     imageUrl: "src/assets/img/kim.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "Flask Backend, React frontend, SQLite Database",
     buttonLink: "https://github.com/kimmykokonut",
     buttonText: "check out Kim's github"
   }
