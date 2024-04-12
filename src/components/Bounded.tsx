@@ -15,7 +15,7 @@ export default function Bounded({
 }: BoundedProps){
 
   return (
-    <Comp className="px-4 py-5 md:py-5 md:px-6 lg:py-5"
+    <Comp className="px-2 py-3 md:px-4"
     {...restProps}>
       <div className="mx-auto w-full max-w-6xl">
         {children}

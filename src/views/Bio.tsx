@@ -41,39 +41,44 @@ const Bios = () => {
 		<p className="text-xl text-center font-body max-w mb-5 px-5">
 			We're a team of junior developers passionate about fair-wages and good eats. Learn more about us below!
 		</p>
-		<div className="grid grid-cols-2 gap-8">
-			{bios.map(
-				(item, index) =>
-					item && (
-						<div
-							key={index}
-							className="border bg-gradient-to-br from-amber-50 to-gray-50 shadow-lg rounded-lg px-8 md:px-14 py-6 md:py-10 grid content-between">
-							<div className="flex items-center">
-								<img
-									width={80}
-									height={80}
-									src={item.imageUrl}
-									className="rounded-full mr-4"
-								/>
-								<div>
-									<p className="text-2xl font-medium text-slate-700">
-										{item.name}
-									</p>
-									<p className="text-base text-slate-600">
-										{item.contribution}
-									</p>
-								</div>
-							</div>
-
-							
-							<p className="text-sm md:text-lg mt-3 font-normal font-body text-slate-600 mb-8">
-								{item.blurb}
-							</p>
-							<Button to={item.buttonLink} buttonText={item.buttonText} className="mb-8 md:mb-10" />
-						</div>
-					)
-			)}
-		</div>
+		<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    {bios.map(
+    (item, index) =>
+        item && (
+            <div
+                key={index}
+                className="border-2 border-red-950 bg-gradient-to-br from-black to-gray-900 shadow-lg rounded-lg px-8 md:px-14 py-6 md:py-10 grid content-between">
+                <div className="flex items-center">
+                    <img
+                        width={100}
+                        height={100}
+                        src={item.imageUrl}
+                        className="rounded-full mr-4"
+                    />
+                    <div>
+                        <p className="text-2xl font-medium">
+                            {item.name}
+                        </p>
+                        <p className="text-base ">
+                            {item.contribution}
+                        </p>
+                    </div>
+                </div>
+                
+                <p className="text-sm md:text-lg mt-3 font-normal font-body mb-8">
+                    {item.blurb}
+                </p>
+                
+                <div className="flex justify-center">
+                    <Button to={item.buttonLink} buttonText={item.buttonText} />
+                </div>
+            </div>
+        )
+)}
+</div>
+<div className="flex justify-center mt-8">
+        <Button to="https://github.com/henry-oberholtzer/beyondtipping" buttonText="Go to GitHub repo" />
+      </div>
 	</Bounded>
 	);
 };
