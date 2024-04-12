@@ -55,7 +55,7 @@ const RestaurantList: React.FC = () => {
       </div>
       <p className="text-xl text-center font-body max-w mb-10 px-5">find restaurants in PDX that have integrated fare wages and foregone tipping!</p>
       <div className="text-center mb-8 md:mb-10">
-        <Button to="/map" buttonText="view restaurant map" className="mb-8 md:mb-10" />
+               
       </div>
       
       <div className="grid w-full h-10 bg-gray-900 rounded-lg place-items-center">
