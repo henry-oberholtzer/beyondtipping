@@ -48,7 +48,7 @@ const bios: Bio[] = [
   },
   {
     name: "Brianca Knight",
-    blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists. My current goal is to combine creative flair with intuitive design to create digital magic.",
+    blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists.",
     imageUrl: "src/assets/img/brianca.jpg",
     contribution: "UI/UX Design",
     buttonLink: "https://github.com/BriancaKnight",
