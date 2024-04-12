@@ -3,30 +3,6 @@ import Heading from '../components/Heading';
 import { useLoaderData } from 'react-router-dom';
 import Button from '../components/Button';
 
-// const components = {
-// 	heading2: (text: string) => (
-// 		<Heading
-// 			as="h2"
-// 			size="md"
-// 			className="text-center mb-9 font-semibold">
-// 			{text}
-// 		</Heading>
-// 	),
-// 	heading3: (text: string) => (
-// 		<Heading
-// 			as="h3"
-// 			size="sm"
-// 			className="mb font-medium sm:text-left text-center">
-// 			{text}
-// 		</Heading>
-// 	),
-// 	paragraph: (text: string) => (
-// 		<p className="text-xl md:text-2xl font-normal font-body text-slate-600 mb-8">
-// 			{text}
-// 		</p>
-// 	),
-// };
-
 const Bios = () => {
   const bios = useLoaderData() as Bio[]
   
@@ -41,6 +17,9 @@ const Bios = () => {
 		<p className="text-xl text-center font-body max-w mb-5 px-5">
 			We're a team of junior developers passionate about fair-wages and good eats. Learn more about us below!
 		</p>
+        <div className="flex justify-center mt-8">
+        <Button to="https://github.com/henry-oberholtzer/beyondtipping" buttonText="Go to GitHub repo" />
+      </div>
 		<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
     {bios.map(
     (item, index) =>
@@ -76,9 +55,6 @@ const Bios = () => {
         )
 )}
 </div>
-<div className="flex justify-center mt-8">
-        <Button to="https://github.com/henry-oberholtzer/beyondtipping" buttonText="Go to GitHub repo" />
-      </div>
 	</Bounded>
 	);
 };
