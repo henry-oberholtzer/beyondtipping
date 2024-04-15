@@ -7,7 +7,7 @@
       <h1>beyondtipping admin</h1>
       {% if not current_user.is_authenticated %}
       <p>
-        You can register or log in as a superuser.
+        Portal for admins of beyondtipping.
       </p>
       <p>
         <a class="btn btn-primary" href="{{ url_for('security.login')}}">login</a>
