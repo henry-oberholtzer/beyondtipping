@@ -94,6 +94,12 @@ An application that lists restaurants that have removed the tipping model, optin
 
 - NOTE: If your api server is not running on `http://127.0.0.1:8000/`, run the command `$ python -m flask --app api/index run -p 8000` in your terminal.
 
+### Geoapify API
+
+* In order to fill out the form to add a restaurant to the database you will need an API key from [geoapify](https://www.geoapify.com/). Once you have obtained one, create a file in the root directory of the project called `.env`.
+* In your `.env` file, add the following code: `VITE_API_KEY=[YOUR API KEY]`, replacing [YOUR API KEY] with your api key.
+* This API is necessary to obtain latitude and longitude coordinates from the address provided to the form, and these values get passed into the database.
+
 ### Database
 
 - SQLite is used as the database engine to store the Restaurant and Type data. SQLite is a widely used relational database management system (RDBMS) that doesn’t need a SQL server to work.  It is bundled into Flask and the file is located at beyondtipping/api/instance/test.db (though you don't need to access the file)
