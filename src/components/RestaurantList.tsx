@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
 import { useLoaderData } from 'react-router'
-import { getTypes, getRestaurants } from "../api_helper";
-import Button from "./Button";
+
+import { getTypes } from "../api_helper";
 import Heading from "./Heading";
+import CallToAction from "./CallToAction";
 
 type Restaurant = {
   name: string;
@@ -12,6 +13,7 @@ type Restaurant = {
   website: string;
   imageUrl: string;
   type_id: number;
+  visible: boolean;
 }
 interface TypeData {
   id: number;
@@ -23,22 +25,9 @@ type RestaurantItemList = Restaurant[]
 
 const RestaurantList: React.FC = () => {
   const restaurants = useLoaderData() as RestaurantItemList;
+  const visibleRestaurants = restaurants.filter(restaurant => restaurant.visible);
   const [types, setTypes] = useState<any[]>([]);
-  const [query, setQuery] = useState("");
-  //const [restaurants, setRestaurants] = useState(allRestaurants);
-
-  // useEffect(() => {
-  //   const fetchRestaurantsAndTypes = async () => {
-  //     const response = await fetch(`http://127.0.0.1:8000/restaurants?query=${query}`);
-  //     const filterRestaurants = await response.json();
-
-  //     const allTypes = await getTypes();
-  //     const typesMap = allTypes.reduce((map: { [key: number]: TypeData }, type: TypeData) => ({ ...map, [type.id]: type }), {});
-  //     setTypes(filterRestaurants.map((restaurant: Restaurant) => typesMap[restaurant.type_id]));
-  //     setRestaurants(filterRestaurants);
-  //   };
-  //   fetchRestaurantsAndTypes();
-  // }, [query]);
+  const [filterTerm, setFilterTerm] = useState("");
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -49,9 +38,10 @@ const RestaurantList: React.FC = () => {
     fetchTypes();
   }, [restaurants]);
 
-  // const handleSearch = () => {
-  //   setQuery(inputValue);
-  // };
+  const filteredRestaurants = visibleRestaurants.filter(restaurant =>
+    restaurant.name.toLowerCase().includes(filterTerm.toLowerCase()) ||
+    restaurant.address.toLowerCase().includes(filterTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -65,20 +55,24 @@ const RestaurantList: React.FC = () => {
       </div>
       <p className="text-xl text-center font-body max-w mb-10 px-5">find restaurants in PDX that have integrated fare wages and foregone tipping!</p>
       <div className="text-center mb-8 md:mb-10">
-        <Button to="/map" buttonText="view restaurant map" className="mb-8 md:mb-10" />
+               
       </div>
-      <div className="mx-auto p-4 max-w-sm">
-        <input
-          className="text-black"
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="search..." />
-        <button>filter list</button>
+      
+      <div className="grid w-full h-10 bg-gray-900 rounded-lg place-items-center">
+        <div className="w-72">
+          <div className="relative w-full min-w-[200px]">
+            <input
+              type="text"
+              value={filterTerm}
+              onChange={(e) => setFilterTerm(e.target.value)}
+              placeholder="filter list..."
+              className="peer w-full rounded-[7px] border border-white bg-transparent px-3 py-2 text-md  !text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-white focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+            />
+          </div>
+        </div>
       </div>
-
       <div className="flex flex-wrap justify-center mt-1">
-        {restaurants.map((restaurant, index) => (
+        {filteredRestaurants.map((restaurant, index) => (
           <Restaurant
             key={restaurant.id}
             name={restaurant.name}
@@ -89,9 +83,10 @@ const RestaurantList: React.FC = () => {
             typeName={types[index]?.name}
             typeAmount={types[index]?.amount}
           />
-          // </Link>
         ))}
       </div>
+      <CallToAction/>
+
     </>
   );
 }

@@ -1,7 +1,7 @@
 # Beyond Tipping
-_by [Brianca Knight](https://github.com/BriancaKnight)  | [Henry Oberholtzer](https://github.com/henry-oberholtzer) | [Kim Robinson](https://github.com/kimmykokonut) | [Noah Kise](https://github.com/NoahKise)_
+_by [Brianca Knight](https://github.com/BriancaKnight), [Henry Oberholtzer](https://github.com/henry-oberholtzer), [Kim Robinson](https://github.com/kimmykokonut), [Noah Kise](https://github.com/NoahKise)_
 
-* Splash page screenshot here?
+![Home Page for beyondtipping](./src/assets/img/home.png)
 
 ---
 ### <u>Jump to section</u>
@@ -13,10 +13,8 @@ _by [Brianca Knight](https://github.com/BriancaKnight)  | [Henry Oberholtzer](ht
   * <a href="#prerequisites">Prerequisites</a>
   * <a href="#setup">Setup</a>
   * <a href="#api-documentation">API Documentation</a>
-* <a href="#setup-client-side">Setup Client Side</a>
 * <a href="#stretch-goals">Stretch Goals</a>
 * <a href="#license">License</a>
-  * <a href="#acknowledgements">Acknowledgements</a>
 ---
 
 ## About the Project
@@ -27,7 +25,7 @@ An application that lists restaurants that have removed the tipping model, optin
 ## Built With
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
@@ -39,7 +37,7 @@ An application that lists restaurants that have removed the tipping model, optin
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 ## Known Bugs
-* None at this time
+* Responsive design: component bleeds on small screen size
 
 ## Getting Started
 
@@ -75,14 +73,8 @@ An application that lists restaurants that have removed the tipping model, optin
 
 8. In VSCode- in project directory of the terminal: type `$ npm install` to compile the application's code and install all needed dependencies.
 
-(You may need to have these installed manually (and create a Prismic account)):
-```
-$ npx @slicemachine/init@latest
-$npm i clsx
- ```
-
 9. Run local server: `$ npm run dev`
-(This will be located at: http://localhost:3000/)
+(This will be located at: http://localhost:5173/)
 (_this command should run front and back end (http://127.0.0.1:8000/) at the same time_)
 
 ### Flask
@@ -96,22 +88,25 @@ $npm i clsx
 4. Enter virtual environment
 `$ source .venv/bin/activate`
 5. Install packages and dependencies
-`$ pip install -r /requirements.txt`
+`$ pip install -r requirements.txt`
 6. Run api server: http://127.0.0.1:8000/
 `$ python index.py`
+
+- NOTE: If your api server is not running on `http://127.0.0.1:8000/`, run the command `$ python -m flask --app api/index run -p 8000` in your terminal.
 
 ### Database
 
 - SQLite is used as the database engine to store the Restaurant and Type data. SQLite is a widely used relational database management system (RDBMS) that doesn’t need a SQL server to work.  It is bundled into Flask and the file is located at beyondtipping/api/instance/test.db (though you don't need to access the file)
 - Already setup, but if curious: To initialize or seed the database, this can be done through the Python shell.  [More info here](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/quickstart/)
 
+<p align="center">
+<img src="./src/assets/img/sql.png" height="250px"/>
+</p>
+
 #### Launch the API
 1) Navigate to api directory using the MacOS Terminal or Windows Powershell.
-2)  Make sure the webapi server is running at http://127.0.0.1:8000, otherwise in the terminal run the command `python index.py` to run the server to access to the API via Postman (or browser via flask rest admin(not sure if this exists?) `http://127.0.0.1:8000/admin`)
-* HENRY CONFIRM INFO*********************
----
-???
----
+2)  Make sure the webapi server is running at http://127.0.0.1:8000, otherwise in the terminal run the command `python index.py` to run the server to access to the API via Postman (or in-browser via flask rest admin, where you will need to register for access `http://127.0.0.1:8000/admin`)
+<!-- * HENRY CONFIRM INFO***re: ADMIN & USER AUTH -->
 3) You can close the server at anytime by entering `ctrl` + `c` in the terminal. 
 
 ---
@@ -156,6 +151,7 @@ http://127.0.0.1:8000/restaurants/1
     "imageUrl": "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
     "latitude": 45.54178453985534,
     "longitude": -122.67473068332497,
+    "visible": True,
     "type_id": 1
   }
 ```
@@ -163,11 +159,11 @@ http://127.0.0.1:8000/restaurants/1
 #### Path Parameters
 | Parameter | Type | Default | Required | Description |
 | :---: | :---: | :---: | :---: | --- |
-| name | string | none | true | Return matches by name.
+| query | string | none | true | Return matches of name or address field.
 
 #### Example Query with path parameter
 ```
-http://127.0.0.1:8000/restaurants?name=bagel
+http://127.0.0.1:8000/restaurants?query=bagel
 ```
 
 #### Sample JSON Response
@@ -180,6 +176,7 @@ http://127.0.0.1:8000/restaurants?name=bagel
     "imageUrl": "https://static1.squarespace.com/static/58715578e6f2e1d4215c94fb/t/62278b3792539d0c2c8cacab/1646758711651/LOGO.jpg?format=1500w",
     "latitude": 45.54178453985534,
     "longitude": -122.67473068332497,
+    "visible": True,
     "type_id": 1
   }
 ```
@@ -210,19 +207,16 @@ Content-Type: application/json
     "imageUrl": "https://images.squarespace-cdn.com/content/v1/5a790307b7411c447f906450/0c65fe57-4201-4a29-9f93-a89252bf9760/Gracie%27s+Apizza+Round+12+inch+%28no+white%29.png",
     "latitude": 45.589974368346105,
     "longitude": -122.75392355397106,
+    "visible": False,
     "type_id": 1
   }
 ```
 
 ---
 
-## Setup Client Side
-* WIP
-
 ## Stretch Goals
-* Build out Restaurant model (hours, foodType)
-* Clickable restaurant to info
+* Build out Restaurant model (hours, cuisine)
+* User register/login/logout to control access for create, edit, delete restaurant data. (Currently admin access only)
 
 ## License
-
-## Acknowledgements
+MIT License, see license.md for details

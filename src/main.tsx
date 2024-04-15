@@ -16,6 +16,7 @@ import RestaurantDetail from './components/RestaurantDetail.tsx';
 import Bios from './views/Bio.tsx';
 import { Form } from './components/Form.tsx';
 import WhyTipFree from './components/WhyTipFree.tsx';
+import { Confirmation } from './components/Confirmation.tsx';
 
 const navigation: NavigationDir[] = [
   {
@@ -47,7 +48,7 @@ const bios: Bio[] = [
   },
   {
     name: "Brianca Knight",
-    blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists. My current goal is to combine creative flair with intuitive design to create digital magic.",
+    blurb: "Passionate about design with a background in arts, marketing, and community engagement, I've spent the last 5 years crafting campaigns for small businesses, nonprofits, and artists.",
     imageUrl: "src/assets/img/brianca.jpg",
     contribution: "UI/UX Design",
     buttonLink: "https://github.com/BriancaKnight",
@@ -55,17 +56,17 @@ const bios: Bio[] = [
   },
   {
     name: "Henry Oberholtzer",
-    blurb: "alright alright alright",
+    blurb: "Musician, programmer and designer and former barista. I'm passionate about promoting equitable wages for all workers, in all industries.",
     imageUrl: "src/assets/img/henry.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "SQLite database, Flask Backend, React frontend",
     buttonLink: "https://github.com/henry-oberholtzer",
     buttonText: "check out Henry's github"
   },
   {
     name: "Kim Robinson",
-    blurb: "alright alright alright",
+    blurb: "Portland based full-stack software engineer, blending my background of natural sciences and the culinary world into a unique recipe for problem-solving in the tech space.",
     imageUrl: "src/assets/img/kim.jpeg",
-    contribution: "Flask Backend, React frontend",
+    contribution: "SQLite database, Flask Backend, React frontend",
     buttonLink: "https://github.com/kimmykokonut",
     buttonText: "check out Kim's github"
   }
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
       {
         path: "form",
         element: <Form />
+      },
+      {
+        path: "confirmation",
+        element: <Confirmation />
       },
       {
         path: "restaurants",

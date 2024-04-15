@@ -92,7 +92,7 @@ restaurants_schema = RestaurantSchema(many=True)
 type_schema = TypeSchema()
 types_schema = TypeSchema(many=True)
 
-# Note: i seeded the type table in the db in the shell like when sqlite was first set up
+# Note: i seeded the type table in the db in the python shell (like when sqlite was first set up)
 def seed_db():
     types = [
     { "name": 'Flat Fee', 
