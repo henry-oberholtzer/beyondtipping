@@ -1,3 +1,4 @@
+
 import Bounded from "./Bounded";
 import Button from "./Button";
 import Heading from "./Heading";
@@ -9,7 +10,6 @@ size="xl"
 className="text-center mt-10 font-bold"
 children={<h1>tip-free restaurant map</h1>}
 />
-
 
 export const Confirmation = () => {
     return (
@@ -35,3 +35,4 @@ export const Confirmation = () => {
     </>
 );
 };
+

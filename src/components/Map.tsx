@@ -22,6 +22,7 @@ export const Map = () => {
         latitude: number;
         longitude: number;
         type_id: number;
+        visible: boolean;
     }
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
@@ -187,7 +188,7 @@ export const Map = () => {
                     subdomains={["mt0", "mt1", "mt2", "mt3"]}
                 />
                 <MarkerClusterGroup>
-                    {restaurants.map(restaurant => (
+                    {restaurants.filter(restaurant => restaurant.visible).map(restaurant => (
 
                         <Marker position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
                             <Popup>

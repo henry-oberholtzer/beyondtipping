@@ -18,6 +18,7 @@
 .leaflet-container {
   height: 80vh;
   width: 80vw;
+  max-width: 1152px;
   margin-left: auto;
   margin-right: auto;
   border: 5px solid #881337;
@@ -130,4 +131,23 @@ body {
   margin-top: 15px;
   background-color: #fffbeb;
   color: #111827;
+}
+
+#confirmation {
+  text-align: center;
+  font-size: 25px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'mulish';
+  margin-top: 30px;
+}
+
+#backToHomeButton {
+  width: fit-content;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
