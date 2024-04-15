@@ -17,6 +17,10 @@ _by [Brianca Knight](https://github.com/BriancaKnight), [Henry Oberholtzer](http
 * <a href="#license">License</a>
 ---
 
+![Map of Restaurants](./src/assets/img/map.png)
+
+---
+
 ## About the Project
 
 ## Description
