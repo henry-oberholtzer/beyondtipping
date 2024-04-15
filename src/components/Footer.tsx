@@ -15,7 +15,7 @@ export default function Footer(props: HeaderFooterProps) {
 
       <ul className="flex">
         {props.navigation.map(({link, label})=>(
-          <li key={label}>
+          <li key={label} className="flex-shrink-0">
           <Link to={link} className="p-3">{label}</Link>
           </li>
         ))}

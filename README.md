@@ -1,5 +1,5 @@
 # Beyond Tipping
-_by [Brianca Knight](https://github.com/BriancaKnight)  | [Henry Oberholtzer](https://github.com/henry-oberholtzer) | [Kim Robinson](https://github.com/kimmykokonut) | [Noah Kise](https://github.com/NoahKise)_
+_by [Brianca Knight](https://github.com/BriancaKnight), [Henry Oberholtzer](https://github.com/henry-oberholtzer), [Kim Robinson](https://github.com/kimmykokonut), [Noah Kise](https://github.com/NoahKise)_
 
 ![Home Page for beyondtipping](./src/assets/img/home.png)
 
@@ -13,10 +13,8 @@ _by [Brianca Knight](https://github.com/BriancaKnight)  | [Henry Oberholtzer](ht
   * <a href="#prerequisites">Prerequisites</a>
   * <a href="#setup">Setup</a>
   * <a href="#api-documentation">API Documentation</a>
-* <a href="#setup-client-side">Setup Client Side</a>
 * <a href="#stretch-goals">Stretch Goals</a>
 * <a href="#license">License</a>
-  * <a href="#acknowledgements">Acknowledgements</a>
 ---
 
 ## About the Project
@@ -39,7 +37,7 @@ An application that lists restaurants that have removed the tipping model, optin
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
 ## Known Bugs
-* None at this time
+* Responsive design: component bleeds on small screen size
 
 ## Getting Started
 
@@ -90,7 +88,7 @@ An application that lists restaurants that have removed the tipping model, optin
 4. Enter virtual environment
 `$ source .venv/bin/activate`
 5. Install packages and dependencies
-`$ pip install -r /requirements.txt`
+`$ pip install -r requirements.txt`
 6. Run api server: http://127.0.0.1:8000/
 `$ python index.py`
 
@@ -107,12 +105,8 @@ An application that lists restaurants that have removed the tipping model, optin
 
 #### Launch the API
 1) Navigate to api directory using the MacOS Terminal or Windows Powershell.
-2)  Make sure the webapi server is running at http://127.0.0.1:8000, otherwise in the terminal run the command `python index.py` to run the server to access to the API via Postman (or browser via flask rest admin(not sure if this exists?) `http://127.0.0.1:8000/admin`)
-
-* HENRY CONFIRM INFO*********************re: ADMIN & USER AUTH
----
-???
----
+2)  Make sure the webapi server is running at http://127.0.0.1:8000, otherwise in the terminal run the command `python index.py` to run the server to access to the API via Postman (or in-browser via flask rest admin, where you will need to register for access `http://127.0.0.1:8000/admin`)
+<!-- * HENRY CONFIRM INFO***re: ADMIN & USER AUTH -->
 3) You can close the server at anytime by entering `ctrl` + `c` in the terminal. 
 
 ---
@@ -220,13 +214,9 @@ Content-Type: application/json
 
 ---
 
-## Setup Client Side
-* WIP--BRIANCE ANYTHING TO ADD?
-
 ## Stretch Goals
-* Build out Restaurant model (hours, foodType)
+* Build out Restaurant model (hours, cuisine)
 * User register/login/logout to control access for create, edit, delete restaurant data. (Currently admin access only)
 
 ## License
-
-## Acknowledgements
+MIT License, see license.md for details
