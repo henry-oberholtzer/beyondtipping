@@ -1,7 +1,10 @@
+import Button from "./Button.tsx";
+
 export const Confirmation = () => {
     return (
         <>
-            <h1>Thank you for your submission! It will be reviewed by an administrator.</h1>
+            <p id="confirmation">Thank you for your submission! It will be reviewed by an administrator.</p>
+            <Button id="backToHomeButton" to="/" buttonText="return to home" className="mb-8 md:mb-10" />
         </>
     )
-} 
+}  
