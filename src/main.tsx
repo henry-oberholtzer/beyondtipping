@@ -56,7 +56,7 @@ const bios: Bio[] = [
   },
   {
     name: "Henry Oberholtzer",
-    blurb: "alright alright alright",
+    blurb: "Musician, programmer and designer and former barista. I'm passionate about promoting equitable wages for all workers, in all industries.",
     imageUrl: "src/assets/img/henry.jpeg",
     contribution: "SQLite database, Flask Backend, React frontend",
     buttonLink: "https://github.com/henry-oberholtzer",
